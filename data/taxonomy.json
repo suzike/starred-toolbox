@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "updated": "2026-09-15",
+  "note": "归类时只能从本文件的 key 中选择，不得自创分类名。若确实无法归入任何一类，选 other。",
+  "categories": [
+    {
+      "key": "ai-agent",
+      "title": "AI Agent 与编码智能体",
+      "desc": "能自主执行编码或多步任务的智能体：终端编码 Agent、IDE 助手、多智能体协作框架、自主任务执行系统。"
+    },
+    {
+      "key": "agent-tooling",
+      "title": "Agent 扩展、Skills 与工具协议",
+      "desc": "为 Agent 提供能力的扩展层：Agent Skills 集合、插件、MCP server、工具协议实现、编辑器/侧边栏扩展。"
+    },
+    {
+      "key": "knowledge-rag",
+      "title": "知识库、RAG 与记忆",
+      "desc": "文档知识化、检索增强生成、知识图谱、长期记忆管理、个人 wiki 与文档问答系统。"
+    },
+    {
+      "key": "matlab-mbd",
+      "title": "MATLAB / Simulink 与基于模型的设计",
+      "desc": "MATLAB/Simulink 生态的工程工具、官方 Agent 集成、MBD 工作流、模型与代码/需求之间的链路。"
+    },
+    {
+      "key": "automotive",
+      "title": "汽车电子、车载测试与控制",
+      "desc": "车载总线工具（CAN/LIN/DOIP/UDS）、标定与测量工具链、ECU 开发、控制算法、热管理与整车工程。"
+    },
+    {
+      "key": "content-creation",
+      "title": "内容创作与多媒体生成",
+      "desc": "图像/视频/文本生成工具、写作流水线、架构图与设计可视化、内容生产自动化。"
+    },
+    {
+      "key": "productivity",
+      "title": "信息聚合与效率工具",
+      "desc": "热点/RSS 聚合、阅读器、文档查看与编辑、监控面板、个人工作台等提升日常效率的桌面或 Web 工具。"
+    },
+    {
+      "key": "learning",
+      "title": "编程学习与计算机基础",
+      "desc": "教程、课程、书籍、题解、学习路线等以学习为目的的资源型仓库，含高质量中文翻译项目。"
+    },
+    {
+      "key": "ml-framework",
+      "title": "机器学习与深度学习框架",
+      "desc": "训练/推理框架、官方模型库、大模型基础设施等底层框架与平台。"
+    },
+    {
+      "key": "methodology",
+      "title": "工程方法论与研发流程",
+      "desc": "规范驱动开发、研发流程治理、工程实践手册、职业能力指南等非工具类的知识内容。"
+    },
+    {
+      "key": "other",
+      "title": "其他",
+      "desc": "无法归入以上任何一类，或信息不足以判断用途的仓库。"
+    }
+  ]
+}

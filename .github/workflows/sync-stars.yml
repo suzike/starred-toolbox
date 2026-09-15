@@ -1,0 +1,86 @@
+name: 同步 Star 归档
+
+on:
+  schedule:
+    # UTC 22:00 = 北京时间早上 6:00，每天跑一次
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+    inputs:
+      force_reanalyze:
+        description: "强制对所有条目重新归类与解读（忽略缓存）"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-stars
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      # STAR_TOKEN: 需要能读取你账号的 Star 列表，且能看到其中的私有仓库。
+      #   - 内置 GITHUB_TOKEN 不行，它被限制在本仓库，读不到账号级 Star。
+      #   - classic PAT 需勾 repo scope（实测可用）。
+      #   - fine-grained PAT 需 Account permissions 的 Starring: read
+      #     + Repository permissions 的 Metadata: read，并覆盖私有仓库。
+      # 配置完可先跑 scripts/sync_stars.py --verify-token 确认私有仓库可见。
+      STAR_TOKEN: ${{ secrets.STAR_TOKEN }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+      LLM_MODEL: ${{ vars.LLM_MODEL }}
+      LLM_BATCH: ${{ vars.LLM_BATCH }}
+    steps:
+      # 未配置 Secret 时优雅跳过。否则定时任务每天都会失败并发送失败通知，
+      # 在仓库刚建好、还没配凭据的阶段尤其烦人。
+      - name: 检查凭据是否已配置
+        id: guard
+        run: |
+          if [ -z "$STAR_TOKEN" ]; then
+            echo "::warning title=未配置 STAR_TOKEN::仓库缺少 STAR_TOKEN，本次同步已跳过。请在 Settings → Secrets and variables → Actions 中配置，说明见 docs/CONFIG.md。"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 检出仓库
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 同步 Star 并渲染 README
+        if: steps.guard.outputs.ready == 'true'
+        run: |
+          if [ "${{ inputs.force_reanalyze }}" = "true" ]; then
+            python scripts/sync_stars.py --reanalyze-all
+          else
+            python scripts/sync_stars.py
+          fi
+
+      # 隐私边界与渲染一致性：字段白名单 + 条目完整性。
+      # 写成脚本而不是内嵌 heredoc —— heredoc 的终止符在 YAML 块标量里会被缩进，
+      # bash 无法识别，CI 会直接以 "delimited by end-of-file" 失败。
+      - name: 校验渲染结果与隐私边界
+        if: steps.guard.outputs.ready == 'true'
+        run: python scripts/validate_render.py
+
+      - name: 提交变更
+        if: steps.guard.outputs.ready == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md data/stars.json
+          if git diff --staged --quiet; then
+            echo "本次无变更，跳过提交。"
+            exit 0
+          fi
+          git commit -m "chore: 同步 Star 归档 $(date -u +%Y-%m-%d)"
+          git push

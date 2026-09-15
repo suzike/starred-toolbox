@@ -1,0 +1,9 @@
+{
+  "repo": "suzike/starred-toolbox",
+  "self_owners": [
+    "suzike",
+    "suzike-dev"
+  ],
+  "publish_private": true,
+  "note": "self_owners 中的 owner 下的仓库会在 README 中标记为「自研」并汇总到快捷索引。publish_private=true：私有仓库以「名称 + 描述 + 链接 + 星数 + 语言」等元数据形式公开列出——这是明确的边界，只公开基本信息，不释放仓库内容。脚本只调用 GraphQL 元数据接口，从不请求仓库文件、README 正文或代码内容；可提交字段由 scripts/sync_stars.py 的 PUBLISHABLE_FIELDS 白名单强制约束，越界会直接报错。本工具从不对仓库可见性做任何写操作。"
+}
