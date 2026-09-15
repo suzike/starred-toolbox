@@ -218,11 +218,17 @@ python scripts/validate_render.py
 3. **可见性层**：脚本对仓库可见性**没有任何写操作**。
    你的私有仓库不会因为本工具变成公开仓库。
 
+4. **产物层**：概览图在设计上只接收聚合数据（分类名与计数、语言名、颜色），
+   函数签名里根本没有传入单个仓库的入口。这条边界另有机械校验兜底——
+   `validate_render.py` 会读取两张 SVG，逐个比对全部活跃条目的名称与描述，
+   命中任意一个即判定失败。校验通过时会打印实际比对的字符串数量，
+   避免「看起来有校验、其实没跑」。
+
 ### 如何自查
 
 ```bash
 python scripts/sync_stars.py --check-publishable   # 字段白名单
-python scripts/validate_render.py                  # 渲染一致性 + 白名单
+python scripts/validate_render.py                  # 六项校验（含概览图聚合边界）
 ```
 
 CI 每次同步都会跑 `validate_render.py`，边界被突破时工作流直接失败，不会提交。
@@ -249,12 +255,29 @@ README 全部由脚本生成，**没有任何一段是手工写的**。改样式
 |---|---|---|
 | 概览卡 | `render_overview.py` | 一张 SVG 里放三段：指标行（收录数/分类数/自研数/私有数）+ 分类分布条形 + 语言分布胶囊。浅色/深色两版 |
 | 目录 | `render_readme()` | HTML 表格，两列并排，11 个分类压到 6 行 |
-| 最近加入 | `render_readme()` | 按 `starred_at` 倒序取前 5 条 |
-| 分类正文 | `render_readme()` | 每条 3 行：名称与标记 / 这是什么 / 什么时候用 |
-| 我的自研项目 | `render_readme()` | `self_owners` 名下仓库的快捷索引 |
+| 最近加入 | `render_readme()` | 按 `starred_at` 倒序取前 5 条，列出分类、语言与星标日期 |
+| 分类正文 | `render_readme()` | 每条 3 行：名称 + 状态标记 + 淡灰元信息 / 这是什么 / 什么时候用 |
+| 我的自研项目 | `render_readme()` | `self_owners` 名下仓库的快捷索引，双列排布 |
 | 运行状态 | `render_readme()` | 放在页脚 `<details>` 里的折叠区，含 Actions 动态徽章与最后同步时间 |
 
-设计上刻意保持克制，有两条成文的取舍：
+### 概览卡的几条视觉规则
+
+都是有意为之，改动前先读一遍：
+
+- **条形色深按「数值」映射，不是按「排名」。** 计数相同的两行必须同色，
+  否则颜色会承载一个它并不代表的含义（同为 7 的两类深浅不同，会被读成两类有差别）。
+  长度和色深是同一个数字的两种表达。
+- **语言胶囊带圆点，色值取自 GitHub Linguist 官方定义**（`data/language_colors.json`，
+  从 `github/linguist` 的 `languages.yml` 提取）。语言色是行业约定色，属语义色，
+  不是装饰色；圆点直径仅 7px，视觉重量低到不会与主图争注意力。
+  深色主题下暗色语言（如 C 的 `#555555`）会看不见，所以圆点带一圈极淡描边。
+- **「未标注」排在语言列表最后，且用中性灰圆点。** 它不是一种语言，
+  按计数混排会让人误读成第三大技术栈。
+- **卡片宽度固定为 850px。** 实测 GitHub 仓库首页的 README 正文栏宽在 840～860px
+  之间，且**不随浏览器窗口变宽而变宽**（1920px 窗口下实测 839px，1280px 窗口下 854px）。
+  取中值让卡片在各种窗口下都正好铺满、且几乎不缩放。
+
+设计上另有两条成文的否决项：
 
 - **不用 shields.io 做静态数值徽章。** 早先版本顶部有 4 个静态徽章 + 1 个动态徽章，
   结果是收录数在徽章、概览图、页脚三处各出现一次，顶部还并排着 5 个颜色互不相干的
@@ -268,6 +291,13 @@ README 全部由脚本生成，**没有任何一段是手工写的**。改样式
 `assets/overview-light.svg` 与 `assets/overview-dark.svg` 每次渲染都会重新生成，
 由 `write_overview_assets()` 写出，并在工作流里随 README 一起提交。
 **不要手工编辑**，下次同步会覆盖。
+
+`data/language_colors.json` 是唯一的例外——它**不是生成物**，是手工维护的静态配置：
+语言名 → 官方色值的映射表，供概览卡的语言圆点取色。色值取自 GitHub Linguist 的
+`lib/linguist/languages.yml`（用 `gh api -H "Accept: application/vnd.github.raw"
+repos/github/linguist/contents/lib/linguist/languages.yml` 拉取后解析）。
+想调整某个语言的颜色，直接改这个文件即可；表里没有的语言会回退为中性灰圆点，
+文件缺失或格式异常也不会让同步失败。
 
 README 里用 `<picture>` 引用这两份图，让 GitHub 跟随用户主题自动切换：
 
@@ -287,6 +317,34 @@ README 里用 `<picture>` 引用这两份图，让 GitHub 跟随用户主题自�
 - 自绘 SVG 无外部依赖、无网络请求、矢量清晰，样式完全可控。
 - 想把图换成别的形式，只改 `scripts/render_overview.py` 即可，
   `sync_stars.py` 只负责传「标签 + 计数」，不关心画法。
+- 渲染层只接收「标签 + 计数」与「语言名 → 颜色」两种输入，不接触任何单个仓库的数据。
+  这条边界由 `validate_render.py` 的第 5 条检查兜底。
+
+### 目录表格的列宽为什么写像素值
+
+GitHub 的表格是 `width:100%` + `table-layout:auto`，百分比列宽只作为建议值参与分配，
+实测会被内容比例带偏——右列的「Agent 扩展、Skills 与工具协议」被压到容不下，
+在线上折成了两行。改成 `width="320"` / `width="60"` 后，分类名列拿到明确的最小宽度，
+不再折行。
+
+### 本地预览的局限（重要）
+
+`_work/make_preview2.py` 那套做法是「用 GitHub 的 `/markdown` 接口渲染 + 套一层
+github-markdown-css」，它能反映 GitHub 对 Markdown 和 HTML 的**解析与清洗**结果，
+但**不能**反映线上真实的 CSS 布局。
+
+已经踩过一次：`github-markdown-css` 里表格是 `display:block; width:max-content`，
+表格只按内容宽度撑开；而 GitHub 线上是 `width:100%`，表格铺满正文栏。
+两者行为不同，曾据此得出「目录表格没占满」的错误结论，并差点把表格改成列表。
+预览脚本里已经覆盖回接近线上的行为，但**表格类版式的最终判断必须抓线上页面截图**：
+
+```bash
+chrome --headless=new --screenshot=out.png --window-size=1280,1500 \
+       --virtual-time-budget=25000 https://github.com/<user>/<repo>
+```
+
+无头浏览器默认取 `prefers-color-scheme: dark`，所以抓到的页面会渲染深色版图表——
+这正好也顺带验证了 `<picture>` 的主题切换确实生效。
 
 ### 改了渲染逻辑之后
 
@@ -294,9 +352,20 @@ README 里用 `<picture>` 引用这两份图，让 GitHub 跟随用户主题自�
 
 ```bash
 python scripts/sync_stars.py --render-only   # 重新生成 README 与 assets/
-python scripts/validate_render.py            # 校验：白名单、条目完整性、图片存在且被引用
+python scripts/validate_render.py            # 六项校验，见下
 ```
 
-`validate_render.py` 会检查两张图是否**既存在于磁盘、又被 README 引用**，
-任一条不满足就报错——这是为了防止出现裂图。CI 每次同步都会跑这套校验，
-不通过则不会提交。
+`validate_render.py` 会检查六件事：
+
+1. 字段白名单（没有内容型字段进入会被提交的文件）
+2. 每个活跃条目都出现在 README 里（防渲染漏项）
+3. README 中 `私有` 标记数与数据层口径一致
+4. 概览图既存在于磁盘、又被 README 引用（防裂图）
+5. **概览图里没有出现任何单个仓库的名称或描述**（防聚合图泄漏具体条目）
+6. 语言色表的色值都是合法十六进制（防圆点静默消失）
+
+第 5、6 条是为了让「概览图只承载聚合信息」这条设计承诺有代码级保证，
+而不只是注释里的约定。输出里会打印实际扫描过的 SVG 数与比对的字符串数，
+这样「静默通过」和「因路径写错而根本没执行」可以区分开。
+
+CI 每次同步都会跑这套校验，不通过则不会提交。
