@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -21,6 +22,11 @@ from sync_stars import PUBLISHABLE_FIELDS, ROOT, assert_publishable  # noqa: E40
 
 STARS_FILE = ROOT / "data" / "stars.json"
 README_FILE = ROOT / "README.md"
+ASSETS = ("overview-light.svg", "overview-dark.svg")
+
+# 「私有」标记只认可条目行上的那一处。README 其他位置（概览说明、统计文字）
+# 也可能出现「私有」二字，用整串计数会把它们误算进条目数。
+ENTRY_MARKER = re.compile(r"^- \*\*\[[^\]]+\]\([^)]+\)\*\*[^\n]*`私有`", re.M)
 
 
 def main() -> int:
@@ -52,12 +58,19 @@ def main() -> int:
                         f"{len(priv_readme)} 个，缺少：{lost[:10]}")
 
     # 4. 反向检查：README 中标记为「私有」的条目不能多于数据层登记的私有条目
-    marker_count = readme.count("`私有`")
+    marker_count = len(ENTRY_MARKER.findall(readme))
     if marker_count != len(priv_data):
         problems.append(
             f"README 中 `私有` 标记出现 {marker_count} 次，"
             f"数据层登记的私有条目为 {len(priv_data)} 个，两边口径不一致"
         )
+
+    # 5. 概览图必须同时存在于磁盘并被 README 引用，否则 README 上会出现裂图
+    for name in ASSETS:
+        if not (ROOT / "assets" / name).exists():
+            problems.append(f"缺少概览图 assets/{name}，README 会出现裂图")
+        if f"assets/{name}" not in readme:
+            problems.append(f"README 未引用 assets/{name}")
 
     print(f"数据层：{len(repos)} 条记录，活跃 {len(active)} 条，其中私有 {len(priv_data)} 条")
     print(f"字段白名单：{len(PUBLISHABLE_FIELDS)} 个字段")

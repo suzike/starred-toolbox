@@ -33,9 +33,15 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote
+
+# 同目录模块。脚本直接运行时 sys.path[0] 即 scripts/；
+# validate_render.py 导入本模块前也已把 scripts/ 插入 sys.path。
+from render_overview import write_overview_assets
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
+ASSETS_DIR = ROOT / "assets"
 CONFIG_FILE = DATA_DIR / "config.json"
 TAXONOMY_FILE = DATA_DIR / "taxonomy.json"
 STARS_FILE = DATA_DIR / "stars.json"
@@ -337,6 +343,59 @@ def fmt_stars(n: int) -> str:
     return str(n)
 
 
+def shields(label: str, message: str, color: str, logo: str = "") -> str:
+    """构造 shields.io 静态徽章 URL。
+
+    徽章内容是 SVG 文本节点，由客户端渲染，中文不会被服务端字体限制。
+    需要注意 shields 的转义规则：`-` 复用为分隔符，`_` 复用为空格，
+    因此出现在 label/message 里的这两个字符都要各自重复一次。
+    """
+    def part(s: str) -> str:
+        return quote(s.replace("-", "--").replace("_", "__").replace(" ", "_"))
+
+    url = f"https://img.shields.io/badge/{part(label)}-{part(message)}-{color}?style=flat-square"
+    if logo:
+        url += f"&logo={quote(logo)}&logoColor=white"
+    return url
+
+
+def build_overview_sections(repos: dict, taxonomy: dict) -> list[dict]:
+    """汇总用于概览图的两个分布：分类分布与语言分布。
+
+    只输出「标签 + 计数」，标签来自 taxonomy 的分类标题或语言名，
+    不含任何与单个仓库相关的信息。
+    """
+    cats = taxonomy["categories"]
+    active = [r for r in repos.values() if r.get("starred_active", True)]
+
+    cat_count: dict[str, int] = {}
+    for r in active:
+        key = r.get("category", "other")
+        cat_count[key] = cat_count.get(key, 0) + 1
+    cat_rows = [(c["title"], cat_count[c["key"]])
+                for c in cats if cat_count.get(c["key"])]
+    cat_rows.sort(key=lambda x: (-x[1], x[0]))
+
+    lang_count: dict[str, int] = {}
+    for r in active:
+        lang = r.get("language") or "未标注"
+        lang_count[lang] = lang_count.get(lang, 0) + 1
+    lang_rows = sorted(lang_count.items(), key=lambda x: (-x[1], x[0]))[:8]
+
+    return [
+        {
+            "title": "分类分布",
+            "note": f"{len(cat_rows)} 个分类 · {len(active)} 个条目",
+            "rows": cat_rows,
+        },
+        {
+            "title": "语言分布",
+            "note": f"共 {len(lang_count)} 种 · 取前 {len(lang_rows)}",
+            "rows": lang_rows,
+        },
+    ]
+
+
 def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     repos = {k: v for k, v in stars_doc["repos"].items() if v.get("starred_active", True)}
     cats = taxonomy["categories"]
@@ -351,44 +410,106 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
 
     total = len(repos)
     priv_count = sum(1 for r in repos.values() if r.get("private"))
+    present = [c for c in cats if grouped.get(c["key"])]
+    last_sync = stars_doc.get("last_sync", "")
 
-    out = []
+    self_owners = [o.lower() for o in cfg.get("self_owners", [])]
+    mine = sorted(
+        (r for r in repos.values()
+         if r["full_name"].split("/")[0].lower() in self_owners),
+        key=lambda x: x["full_name"].lower(),
+    )
+
+    out: list[str] = []
     out.append("# Starred Toolbox")
+    out.append("")
+
+    # 徽章行。放在 H1 之后、正文之前，作为一眼可读的状态摘要。
+    # 前四个是静态徽章（数值由脚本写入 URL），最后一个是 GitHub Actions 的
+    # 动态徽章——它能直接反映「定时同步是否还在正常工作」，是这条自动化链路
+    # 唯一的可视化健康指示。
+    badges = [
+        f"![收录 {total} 个仓库]({shields('收录', f'{total} 个仓库', '4F7DF3')})",
+        f"![{len(present)} 个分类]({shields('分类', f'{len(present)} 个', '8E6BF2')})",
+    ]
+    if mine:
+        badges.append(f"![自研 {len(mine)} 个]({shields('自研', f'{len(mine)} 个', '5B8DEF')})")
+    if last_sync:
+        badges.append(
+            f"![最后同步 {last_sync}]({shields('同步', last_sync.split(' ')[0], '64748B')})"
+        )
+    repo_slug = cfg.get("repo", "")
+    if repo_slug:
+        badges.append(
+            f"![定时同步状态](https://github.com/{repo_slug}"
+            "/actions/workflows/sync-stars.yml/badge.svg?branch=main)"
+        )
+    out.append(" ".join(badges))
     out.append("")
     out.append("> 我在 GitHub 星标的工具与资源归档。来源只有一个：**我的 Star**。")
     out.append("> 未经星标的内容不会出现在这里。归类与解读由脚本自动生成。")
     out.append("")
-    out.append(f"最后同步：{stars_doc.get('last_sync', '')} ｜ 共 **{total}** 个仓库")
     if priv_count and cfg.get("publish_private"):
-        out.append("")
         out.append(
             f"<sub>其中 {priv_count} 个为本人的私有仓库。此处只列出名称、描述与链接等"
             "基本信息，其代码与文件内容不对外释放，点击链接需要对应访问权限。</sub>"
         )
     elif stars_doc.get("excluded_private"):
-        out.append("")
         out.append(
             f"<sub>另有 {stars_doc['excluded_private']} 个私有仓库收藏未列出："
             "本归档不写入私有仓库的名称、描述或链接，也不改变其可见性。</sub>"
         )
     out.append("")
 
-    # 目录
+    # 概览：分布图 + 最近加入。图由 scripts/render_overview.py 生成，
+    # 浅色/深色两版通过 <picture> 随 GitHub 主题切换。
+    out.append("## 概览")
+    out.append("")
+    out.append("<picture>")
+    out.append('  <source media="(prefers-color-scheme: dark)" '
+               'srcset="assets/overview-dark.svg">')
+    out.append('  <img alt="分类分布与语言分布" src="assets/overview-light.svg">')
+    out.append("</picture>")
+    out.append("")
+    if last_sync:
+        out.append(f"<sub>最后同步：{last_sync}</sub>")
+        out.append("")
+
+    recent = sorted(repos.values(),
+                    key=lambda x: x.get("starred_at") or "", reverse=True)[:5]
+    if recent:
+        out.append("### 最近加入")
+        out.append("")
+        out.append("| 仓库 | 分类 | 星标于 |")
+        out.append("| :--- | :--- | :--- |")
+        for r in recent:
+            cat_title = next((c["title"] for c in cats
+                              if c["key"] == r.get("category")), "其他")
+            out.append(f"| [{r['full_name']}]({r['url']}) | {cat_title} | "
+                       f"{(r.get('starred_at') or '')[:10]} |")
+        out.append("")
+
+    # 目录：表格形式，`占比` 列用方块字符近似条形，比纯文本列表更容易看出重心。
     out.append("## 目录")
     out.append("")
-    present = [c for c in cats if grouped.get(c["key"])]
+    out.append("| 分类 | 数量 | 占比 |")
+    out.append("| :--- | ---: | :--- |")
+    peak = max((len(grouped[c["key"]]) for c in present), default=1)
     for c in present:
-        anchor = slugify(c["title"])
-        out.append(f"- [{c['title']}](#{anchor}) — {len(grouped[c['key']])}")
-    if cfg.get("self_owners"):
-        out.append("- [我的自研项目](#我的自研项目)")
+        n = len(grouped[c["key"]])
+        blocks = "█" * max(1, round(16 * n / peak))
+        out.append(f"| [{c['title']}](#{slugify(c['title'])}) | {n} | `{blocks}` |")
     out.append("")
+    if mine:
+        out.append(f"<sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 {len(mine)} 个。</sub>")
+        out.append("")
 
     # 分类正文
-    self_owners = [o.lower() for o in cfg.get("self_owners", [])]
     for c in present:
         items = grouped[c["key"]]
         out.append(f"## {c['title']}")
+        out.append("")
+        out.append(f"<sub>共 {len(items)} 个 · [返回目录](#目录)</sub>")
         out.append("")
         for r in items:
             owner = r["full_name"].split("/")[0].lower()
@@ -406,32 +527,60 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
             if r.get("what"):
                 out.append(f"  {r['what']}")
             if r.get("why"):
-                out.append(f"  <sub>{r['why']}</sub>")
+                out.append(f"  <sub>↳ {r['why']}</sub>")
         out.append("")
 
     # 自研项目索引
-    if self_owners:
-        mine = [r for r in repos.values()
-                if r["full_name"].split("/")[0].lower() in self_owners]
-        mine.sort(key=lambda x: x["full_name"].lower())
-        if mine:
-            out.append("## 我的自研项目")
-            out.append("")
-            out.append("以下仓库同时出现在上方对应分类中，此处仅作快捷索引。")
-            out.append("")
-            for r in mine:
-                cat_title = next(
-                    (c["title"] for c in cats if c["key"] == r.get("category")), "其他"
-                )
-                out.append(f"- [{r['full_name']}]({r['url']}) — {cat_title}")
-            out.append("")
+    if mine:
+        out.append("## 我的自研项目")
+        out.append("")
+        out.append("以下仓库同时出现在上方对应分类中，此处仅作快捷索引。")
+        out.append("")
+        out.append("| 仓库 | 所属分类 |")
+        out.append("| :--- | :--- |")
+        for r in mine:
+            cat_title = next(
+                (c["title"] for c in cats if c["key"] == r.get("category")), "其他"
+            )
+            out.append(f"| [{r['full_name']}]({r['url']}) | {cat_title} |")
+        out.append("")
 
     out.append("---")
     out.append("")
-    out.append("<sub>本文件由 `scripts/sync_stars.py` 自动生成，请勿手工编辑。")
-    out.append("要增删条目，请直接在 GitHub 上 Star 或取消 Star，定时任务会自动同步。</sub>")
+    out.append("[返回目录](#目录)")
+    out.append("")
+    out.append("<details>")
+    out.append("<summary>这个归档是怎么运转的</summary>")
+    out.append("")
+    out.append("- 唯一来源是本账号的 Star 列表，由 GitHub Actions 每天定时拉取，"
+               "不做任何主动发现。")
+    out.append("- 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；"
+               "没有配置模型密钥时降级为规则归类。")
+    out.append("- 私有仓库只公开名称、描述与链接等元数据，"
+               "同步脚本从不请求仓库文件、README 正文或代码内容。")
+    out.append("- 取消 Star 后，条目会在下次同步时移出列表。")
+    out.append("")
+    out.append("<sub>本文件与 `assets/` 下的分布图均由 `scripts/sync_stars.py` 自动生成，"
+               "请勿手工编辑。</sub>")
+    out.append("")
+    out.append("</details>")
     out.append("")
     return "\n".join(out)
+
+
+def emit_outputs(stars_doc: dict, taxonomy: dict, cfg: dict, dry_run: bool = False) -> None:
+    """渲染并写出 README 与概览图。dry_run 时只计算不落盘。"""
+    content = render_readme(stars_doc, taxonomy, cfg)
+    active = {k: v for k, v in stars_doc["repos"].items()
+              if v.get("starred_active", True)}
+    sections = build_overview_sections(active, taxonomy)
+    if dry_run:
+        log("  [dry-run] 未写入文件")
+        return
+    for path in write_overview_assets(ASSETS_DIR, sections):
+        log(f"  已写入 {path.relative_to(ROOT)}")
+    README_FILE.write_text(content, encoding="utf-8")
+    log(f"  已写入 {README_FILE.relative_to(ROOT)}（{len(content)} 字符）")
 
 
 def main() -> int:
@@ -489,8 +638,8 @@ def main() -> int:
 
     if args.render_only:
         assert_publishable(stars_doc)
-        README_FILE.write_text(render_readme(stars_doc, taxonomy, cfg), encoding="utf-8")
-        log(f"已重新渲染 README（{len(stars_doc['repos'])} 条数据）")
+        log(f"重新渲染 README 与概览图（{len(stars_doc['repos'])} 条数据）")
+        emit_outputs(stars_doc, taxonomy, cfg)
         return 0
 
     log("步骤 1/4：拉取 Star 列表")
@@ -602,13 +751,8 @@ def main() -> int:
             encoding="utf-8",
         )
 
-    log("步骤 4/4：渲染 README")
-    content = render_readme(stars_doc, taxonomy, cfg)
-    if args.dry_run:
-        log("  [dry-run] 未写入文件")
-    else:
-        README_FILE.write_text(content, encoding="utf-8")
-        log(f"  已写入 {README_FILE.relative_to(ROOT)}（{len(content)} 字符）")
+    log("步骤 4/4：渲染 README 与概览图")
+    emit_outputs(stars_doc, taxonomy, cfg, dry_run=args.dry_run)
 
     log("完成。")
     return 0
