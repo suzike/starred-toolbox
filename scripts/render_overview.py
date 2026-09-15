@@ -7,20 +7,21 @@
     浅色与深色两版，适配 GitHub 的 prefers-color-scheme 切换。
   - 所有文本（含中文）都以文本节点写入，由客户端渲染，不依赖服务端字体。
 
-版式：单张卡片，自上而下三段，用一条细分隔线切开
-  1. 指标行 —— 收录总数 / 分类数 / 自研数 / 私有数，大号数字 + 小号标签
-  2. 分类分布 —— 横向条形，长度按最大项归一化（不是按总量，这样类别之间
-     的相对关系更直观）
-  3. 语言分布 —— 胶囊标签流式排布。语言名短、种类多，用条形图要占十几行，
-     换成胶囊后同样信息只占两行，且视觉重量明显低于上面的主图，
-     信息层级自然拉开。
+版式：单张卡片，自上而下三段
+  1. 指标行   —— 收录总数 / 分类数 / 自研数 / 私有数，大号数字 + 小号标签
+  2. 分类分布 —— 横向条形，长度按最大项归一化（不是按总量，这样类别之间的
+     相对关系更直观）；色深按排名自上而下递减
+  3. 语言分布 —— 胶囊标签流式排布，每枚带语言色圆点
 
-设计上是刻意克制的：单一强调色（不用渐变）、无阴影、无装饰线，
-所有对比靠字号、字重和灰度层级建立。
+设计上是刻意克制的：单一强调色（不用渐变背景）、无阴影、无装饰线框。
+所有层级靠字号、字重、灰度与「同色系的深浅」建立，不引入第二种装饰色。
+唯一的彩色是语言圆点，它是语义色（沿用 GitHub 自己的语言色约定），
+且直径只有 7px，视觉重量低到不会与主图争注意力。
 
-隐私边界：本模块只接收「标签 + 计数」二元组。标签来自 taxonomy.json 的
-分类标题、编程语言名与调用方传入的固定文案，不含任何与单个仓库相关的
-信息。SVG 中不会出现单个私有仓库的名称、描述或链接。
+隐私边界：本模块只接收「标签 + 计数」二元组与「语言名 -> 颜色」映射。
+标签来自 taxonomy.json 的分类标题、编程语言名与调用方传入的固定文案，
+不含任何与单个仓库相关的信息。SVG 中不会出现单个私有仓库的名称、
+描述或链接。
 
 仅依赖 Python 标准库。
 """
@@ -30,9 +31,12 @@ from __future__ import annotations
 from pathlib import Path
 
 # --- 栅格常量 --------------------------------------------------------------
-# 宽度取 880：GitHub README 正文在宽屏下的容器宽度约 830～900px，这个值
-# 既能填满容器又几乎不会被放大模糊（SVG 缩放不失真，但字号比例会变）。
-WIDTH = 880
+# 宽度取 850：实测 GitHub 仓库首页的 README 正文栏宽在 840～860px 之间，
+# 且不随浏览器窗口变宽而变宽（1920px 窗口下实测 839px，1280px 窗口下 854px）。
+# 图片按 max-width:100% 渲染，比栏宽小会留白、大则等比缩小，所以取这个区间
+# 的中值能让卡片在各种窗口下都正好铺满且几乎不缩放——13px 的设计字号
+# 就是屏幕上真实的 13px。
+WIDTH = 850
 PAD = 32
 CONTENT_W = WIDTH - PAD * 2
 
@@ -44,10 +48,14 @@ KPI_NUM_TO_LABEL = 20        # 数字基线 -> 标签基线
 KPI_TO_DIVIDER = 26          # 标签基线 -> 分隔线
 DIVIDER_TO_SECTION = 28      # 分隔线 -> 下一段标题基线
 
-# 段落标题
+# 段落标题。标题左侧带一根短竖条作为段落标记——比给标题加装饰线更轻，
+# 也比纯文字更容易看出「这里开始新的一段」。
 TITLE_SIZE = 14
 TITLE_DROP = 11              # 段顶 -> 标题基线
 TITLE_TO_ROWS = 18           # 标题基线 -> 首个条形行中心
+MARKER_W = 3
+MARKER_H = 14
+MARKER_TO_TITLE = 11         # 竖条右缘 -> 标题起始
 
 # 条形行
 # 标签右对齐紧贴条形起点，而不是左对齐。分类名长度差异很大（「编程学习与
@@ -58,14 +66,24 @@ LABEL_SIZE = 13
 LABEL_W = 240                # 13px 下最长分类名约 221px，留有余量
 BAR_GAP = 14                 # 标签列与条形之间的空隙
 BAR_H = 6                    # 细条形比粗条形更接近「数据条」而不是「进度条」
-ROW_H = 25
+ROW_H = 24
 VALUE_W = 46                 # 右侧数字所占宽度（右对齐）
 SECTION_GAP = 26             # 上一段末尾 -> 下一段顶
+
+# 条形的深浅梯度：按计数与峰值之比映射，峰值用满色，最小项降到 BAR_MIN_OPACITY。
+# 这是同一强调色内的深浅变化，不是第二种颜色。
+#
+# 刻意按「数值」而不是按「排名」映射。按排名做梯度会让计数相同的两行（例如
+# 两条都是 7）呈现不同深浅——颜色于是承载了一个它并不代表的信息，是误导。
+# 按数值映射后，长度和色深是同一个数字的两种表达，读起来一致。
+BAR_MIN_OPACITY = 0.55
 
 # 胶囊标签
 CHIP_H = 26
 CHIP_FONT = 12
 CHIP_PAD = 11
+CHIP_DOT = 7                 # 语言色圆点直径
+CHIP_DOT_GAP = 7
 CHIP_NUM_GAP = 9
 CHIP_GAP_X = 8
 CHIP_GAP_Y = 8
@@ -88,6 +106,12 @@ THEMES = {
         "chip_border": "",
         "chip_text": "#566174",
         "chip_num": "#0F172A",
+        # 圆点描边：浅色主题下 JavaScript 的黄、SystemVerilog 的浅绿这类
+        # 高明度色块压在同样浅的胶囊底上会糊成一片，加一圈极淡的深色描边
+        # 把它从底上「拎」出来。深色主题反过来，用淡白描边。
+        "dot_stroke": "#0B1220",
+        "dot_stroke_opacity": "0.16",
+        "dot_neutral": "#94A3B8",
     },
     "dark": {
         "bg": "#0D1117",
@@ -103,6 +127,9 @@ THEMES = {
         "chip_border": "#30363D",
         "chip_text": "#A9B2BD",
         "chip_num": "#E6EDF3",
+        "dot_stroke": "#FFFFFF",
+        "dot_stroke_opacity": "0.22",
+        "dot_neutral": "#7D8590",
     },
 }
 
@@ -159,7 +186,8 @@ def _t(x: float, y: float, s: str, size: float, fill: str,
 def _chip_width(label: str, count: int) -> float:
     num = str(count)
     # 数字用 600 字重，比常规体略宽，系数从 0.56 上调到 0.62
-    return (CHIP_PAD * 2 + _text_width(label, CHIP_FONT)
+    return (CHIP_PAD * 2 + CHIP_DOT + CHIP_DOT_GAP
+            + _text_width(label, CHIP_FONT)
             + CHIP_NUM_GAP + len(num) * CHIP_FONT * 0.62)
 
 
@@ -186,14 +214,16 @@ def render_overview_svg(payload: dict, theme: str = "light") -> str:
     """生成概览 SVG。
 
     payload:
-      kpis       [(值, 标签), ...]       例如 [("65", "已收录仓库"), ...]
-      categories [(标签, 计数), ...]     需调用方预先按计数降序排好
-      languages  [(标签, 计数), ...]     同上
+      kpis            [(值, 标签), ...]      例如 [("65", "收录仓库"), ...]
+      categories      [(标签, 计数), ...]    需调用方预先按计数降序排好
+      languages       [(标签, 计数), ...]    同上
+      language_colors {语言名: "#RRGGBB"}   缺项时回退为中性灰圆点
     """
     c = THEMES.get(theme, THEMES["light"])
     kpis = list(payload.get("kpis") or [])
     cats = list(payload.get("categories") or [])
     langs = list(payload.get("languages") or [])
+    colors = payload.get("language_colors") or {}
     chip_rows = _chip_layout(langs, CONTENT_W) if langs else []
 
     # --- 高度预算：自上而下走一遍光标，再据此声明画布尺寸 ---
@@ -232,6 +262,14 @@ def render_overview_svg(payload: dict, theme: str = "light") -> str:
         f'fill="{c["bg"]}" stroke="{c["border"]}"/>'
     )
 
+    def section_title(baseline: float, text: str) -> None:
+        out.append(
+            f'<rect x="{PAD}" y="{baseline - 12:.1f}" width="{MARKER_W}" '
+            f'height="{MARKER_H}" rx="{MARKER_W / 2:.1f}" fill="{c["accent"]}"/>'
+        )
+        out.append(_t(PAD + MARKER_W + MARKER_TO_TITLE, baseline, text,
+                      TITLE_SIZE, c["title"], weight="600"))
+
     # --- 1. 指标行 ---
     if kpis:
         col_w = CONTENT_W / len(kpis)
@@ -251,27 +289,30 @@ def render_overview_svg(payload: dict, theme: str = "light") -> str:
         peak = max(n for _, n in cats) or 1
         bar_x = PAD + LABEL_W + BAR_GAP
         bar_max = WIDTH - PAD - VALUE_W - bar_x
-        out.append(_t(PAD, cat_title_baseline, "分类分布", TITLE_SIZE,
-                      c["title"], weight="600"))
+        section_title(cat_title_baseline, "分类分布")
         for i, (label, n) in enumerate(cats):
             cy = cat_first_center + i * ROW_H
-            w = max(BAR_H, bar_max * n / peak)
+            ratio = n / peak
+            w = max(BAR_H, bar_max * ratio)
+            opacity = BAR_MIN_OPACITY + (1.0 - BAR_MIN_OPACITY) * ratio
             out.append(_t(PAD + LABEL_W, cy + 4.5,
                           _fit(label, LABEL_SIZE, LABEL_W),
                           LABEL_SIZE, c["label"], anchor="end"))
             out.append(
                 f'<rect x="{bar_x:.1f}" y="{cy - BAR_H / 2:.1f}" '
                 f'width="{w:.1f}" height="{BAR_H}" rx="{min(BAR_H / 2, w / 2):.1f}" '
-                f'fill="{c["accent"]}"/>'
+                f'fill="{c["accent"]}" fill-opacity="{opacity:.3f}"/>'
             )
             out.append(_t(WIDTH - PAD, cy + 4.5, n, LABEL_SIZE,
                           c["value"], weight="600", anchor="end"))
 
     # --- 3. 语言分布 ---
     if chip_rows:
-        out.append(_t(PAD, lang_title_baseline, "语言分布", TITLE_SIZE,
-                      c["title"], weight="600"))
+        section_title(lang_title_baseline, "语言分布")
         stroke = (f' stroke="{c["chip_border"]}"' if c["chip_border"] else "")
+        dot_stroke = (f' stroke="{c["dot_stroke"]}" '
+                      f'stroke-opacity="{c["dot_stroke_opacity"]}" '
+                      f'stroke-width="0.8"')
         for ri, row in enumerate(chip_rows):
             x = PAD
             y = chips_top + ri * (CHIP_H + CHIP_GAP_Y)
@@ -281,8 +322,15 @@ def render_overview_svg(payload: dict, theme: str = "light") -> str:
                     f'height="{CHIP_H}" rx="{CHIP_H / 2}" '
                     f'fill="{c["chip_bg"]}"{stroke}/>'
                 )
-                base = y + CHIP_H / 2 + 4.3
-                out.append(_t(x + CHIP_PAD, base, label, CHIP_FONT, c["chip_text"]))
+                dot = colors.get(label) or c["dot_neutral"]
+                cy = y + CHIP_H / 2
+                out.append(
+                    f'<circle cx="{x + CHIP_PAD + CHIP_DOT / 2:.1f}" '
+                    f'cy="{cy:.1f}" r="{CHIP_DOT / 2}" fill="{dot}"{dot_stroke}/>'
+                )
+                base = cy + 4.3
+                out.append(_t(x + CHIP_PAD + CHIP_DOT + CHIP_DOT_GAP, base,
+                              label, CHIP_FONT, c["chip_text"]))
                 out.append(_t(x + w - CHIP_PAD, base, n, CHIP_FONT,
                               c["chip_num"], weight="600", anchor="end"))
                 x += w + CHIP_GAP_X

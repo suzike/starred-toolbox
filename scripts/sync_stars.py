@@ -44,7 +44,12 @@ ASSETS_DIR = ROOT / "assets"
 CONFIG_FILE = DATA_DIR / "config.json"
 TAXONOMY_FILE = DATA_DIR / "taxonomy.json"
 STARS_FILE = DATA_DIR / "stars.json"
+LANG_COLORS_FILE = DATA_DIR / "language_colors.json"
 README_FILE = ROOT / "README.md"
+
+# 语言分布中「没有主语言」的条目所用的占位标签。它不是编程语言，
+# 排序时会被压到最后，圆点也回退为中性灰。
+LANG_NONE_LABEL = "未标注"
 
 GH_TOKEN = os.environ.get("STAR_TOKEN") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
 LLM_KEY = os.environ.get("LLM_API_KEY", "").strip()
@@ -342,11 +347,13 @@ def fmt_stars(n: int) -> str:
     return str(n)
 
 
-def build_overview_payload(repos: dict, taxonomy: dict, cfg: dict) -> dict:
+def build_overview_payload(repos: dict, taxonomy: dict, cfg: dict,
+                          lang_colors: dict | None = None) -> dict:
     """汇总概览卡需要的三段数据：指标、分类分布、语言分布。
 
     只输出「标签 + 计数」，标签来自 taxonomy 的分类标题、编程语言名或固定
     文案，不含任何与单个仓库相关的信息——这是概览图可以公开的前提。
+    传入的 lang_colors 是「语言名 -> 官方色值」的静态映射，同样与单个仓库无关。
 
     语言这里不做截断：原先是「取前 8 种」，现在概要图改用胶囊标签排布，
     全部语言也只需要两行，截断反而是白白丢信息。
@@ -364,9 +371,14 @@ def build_overview_payload(repos: dict, taxonomy: dict, cfg: dict) -> dict:
 
     lang_count: dict[str, int] = {}
     for r in active:
-        lang = r.get("language") or "未标注"
+        lang = r.get("language") or LANG_NONE_LABEL
         lang_count[lang] = lang_count.get(lang, 0) + 1
-    lang_rows = sorted(lang_count.items(), key=lambda x: (-x[1], x[0]))
+    # 「未标注」不是一种语言，混在按计数排序的语言列里会让人误读成第三大
+    # 技术栈。固定压到末位，颜色也回退为中性灰。
+    lang_rows = sorted(
+        lang_count.items(),
+        key=lambda x: (x[0] == LANG_NONE_LABEL, -x[1], x[0]),
+    )
 
     self_owners = [o.lower() for o in cfg.get("self_owners", [])]
     mine_n = sum(1 for r in active
@@ -385,7 +397,12 @@ def build_overview_payload(repos: dict, taxonomy: dict, cfg: dict) -> dict:
     if priv_n and cfg.get("publish_private"):
         kpis.append((str(priv_n), "私有仓库"))
 
-    return {"kpis": kpis, "categories": cat_rows, "languages": lang_rows}
+    return {
+        "kpis": kpis,
+        "categories": cat_rows,
+        "languages": lang_rows,
+        "language_colors": lang_colors or {},
+    }
 
 
 def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
@@ -450,6 +467,11 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     # 才能形成两列——Markdown 表格做不到，硬写会多出一行空表头。
     # 原先的「占比」列用 █ 方块字符，问题有两个：颜色继承正文字色无法控制，
     # 且不同平台的方块字形宽度不一致，条目一多就参差不齐。
+    #
+    # 列宽用像素值而不是百分比。GitHub 的表格是 `width:100%` + `table-layout:auto`，
+    # 百分比只作为建议值参与列宽分配，实测会被内容比例带偏：右列的
+    # 「Agent 扩展、Skills 与工具协议」被压到容不下，在线上折成了两行。
+    # 像素值相当于给列一个明确的最小宽度，分类名列拿到 320px 后不再折行。
     out.append("## 目录")
     out.append("")
     out.append('<table width="100%">')
@@ -458,17 +480,14 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
         chunk = pairs[i:i + 2]
         cells = []
         for c, n in chunk:
-            # 显式指定列宽：不指定时浏览器按内容自动分配，左右两组会因为
-            # 各自最长分类名不同而宽度不等，看起来像没对齐。用百分比而不是
-            # 像素，是为了让四列无论容器多宽都保持 4 : 1 的比例。
             cells.append(
-                f'<td width="40%"><a href="#{slugify(c["title"])}">'
+                f'<td width="320"><a href="#{slugify(c["title"])}">'
                 f'{c["title"]}</a></td>'
             )
-            cells.append(f'<td width="10%" align="right">{n}</td>')
+            cells.append(f'<td width="60" align="right">{n}</td>')
         # 补齐奇数列，让最后一行的单元格数与其他行一致
         if len(chunk) == 1:
-            cells.extend(['<td width="40%"></td>', '<td width="10%"></td>'])
+            cells.extend(['<td width="320"></td>', '<td width="60"></td>'])
         out.append("<tr>" + "".join(cells) + "</tr>")
     out.append("</table>")
     out.append("")
@@ -481,16 +500,22 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     if recent:
         out.append("## 最近加入")
         out.append("")
-        out.append("| 仓库 | 分类 | 星标于 |")
-        out.append("| :--- | :--- | :--- |")
+        out.append("| 仓库 | 分类 | 语言 | 星标于 |")
+        out.append("| :--- | :--- | :--- | ---: |")
         for r in recent:
             cat_title = next((c["title"] for c in cats
                               if c["key"] == r.get("category")), "其他")
             out.append(f"| [{r['full_name']}]({r['url']}) | {cat_title} | "
+                       f"{r.get('language') or '—'} | "
                        f"{(r.get('starred_at') or '')[:10]} |")
         out.append("")
 
-    # 分类正文
+    # 分类正文。
+    # 每条固定三行：名称行（链接 + 状态标记 + 淡灰元信息）/ 这是什么 / 什么时候用。
+    # 语言与星数从名称行里挪出 code span 改为行内小字，是因为原来每条标题后
+    # 都跟着两个灰底小方块（`TypeScript` `★ 224.3k`），65 条排下来满屏碎块，
+    # 名称本身反而被淹没。状态标记（私有 / 已归档 / 自研）保留 code 底色，
+    # 它们是需要注意的信号，值得比元信息更显眼。
     for c in present:
         items = grouped[c["key"]]
         out.append(f"## {c['title']}")
@@ -500,16 +525,21 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
         for r in items:
             owner = r["full_name"].split("/")[0].lower()
             marks = []
-            if r.get("language"):
-                marks.append(f"`{r['language']}`")
-            marks.append(f"`★ {fmt_stars(r['stars'])}`")
             if r.get("private"):
                 marks.append("`私有`")
             if r.get("archived"):
                 marks.append("`已归档`")
             if owner in self_owners:
                 marks.append("`自研`")
-            out.append(f"- **[{r['full_name']}]({r['url']})** {' '.join(marks)}")
+            mark_str = (" " + " ".join(marks)) if marks else ""
+
+            meta = []
+            if r.get("language"):
+                meta.append(r["language"])
+            meta.append(f"★ {fmt_stars(r['stars'])}")
+            meta_str = f" <sub>{' · '.join(meta)}</sub>"
+
+            out.append(f"- **[{r['full_name']}]({r['url']})**{mark_str}{meta_str}")
             if r.get("what"):
                 out.append(f"  {r['what']}")
             if r.get("why"):
@@ -518,19 +548,29 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
                 out.append(f"  <sub>{r['why']}</sub>")
         out.append("")
 
-    # 自研项目索引
+    # 自研项目索引。排成双列：19 条单列要占 19 行，双列压到 10 行，
+    # 而每一项本身很短，两列并不会影响可读性。
     if mine:
         out.append("## 我的自研项目")
         out.append("")
         out.append("以下仓库同时出现在上方对应分类中，此处仅作快捷索引。")
         out.append("")
-        out.append("| 仓库 | 所属分类 |")
-        out.append("| :--- | :--- |")
-        for r in mine:
-            cat_title = next(
+        out.append("| 仓库 | 所属分类 | 仓库 | 所属分类 |")
+        out.append("| :--- | :--- | :--- | :--- |")
+
+        def cat_of(r: dict) -> str:
+            return next(
                 (c["title"] for c in cats if c["key"] == r.get("category")), "其他"
             )
-            out.append(f"| [{r['full_name']}]({r['url']}) | {cat_title} |")
+
+        for i in range(0, len(mine), 2):
+            cells = []
+            for r in mine[i:i + 2]:
+                cells.append(f"[{r['full_name']}]({r['url']})")
+                cells.append(cat_of(r))
+            if len(cells) == 2:
+                cells.extend(["", ""])
+            out.append("| " + " | ".join(cells) + " |")
         out.append("")
 
     out.append("---")
@@ -566,12 +606,13 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     return "\n".join(out)
 
 
-def emit_outputs(stars_doc: dict, taxonomy: dict, cfg: dict, dry_run: bool = False) -> None:
+def emit_outputs(stars_doc: dict, taxonomy: dict, cfg: dict,
+                 lang_colors: dict | None = None, dry_run: bool = False) -> None:
     """渲染并写出 README 与概览图。dry_run 时只计算不落盘。"""
     content = render_readme(stars_doc, taxonomy, cfg)
     active = {k: v for k, v in stars_doc["repos"].items()
               if v.get("starred_active", True)}
-    sections = build_overview_payload(active, taxonomy, cfg)
+    sections = build_overview_payload(active, taxonomy, cfg, lang_colors)
     if dry_run:
         log("  [dry-run] 未写入文件")
         return
@@ -579,6 +620,17 @@ def emit_outputs(stars_doc: dict, taxonomy: dict, cfg: dict, dry_run: bool = Fal
         log(f"  已写入 {path.relative_to(ROOT)}")
     README_FILE.write_text(content, encoding="utf-8")
     log(f"  已写入 {README_FILE.relative_to(ROOT)}（{len(content)} 字符）")
+
+
+def load_language_colors() -> dict:
+    """读取语言色表。缺失或格式异常时返回空表——渲染层会回退为中性灰圆点，
+    不因为一个纯装饰性配置文件就让整个同步失败。"""
+    doc = load_json(LANG_COLORS_FILE, {})
+    colors = doc.get("colors")
+    if not isinstance(colors, dict):
+        log(f"  提示：{LANG_COLORS_FILE.name} 缺少 colors 对象，语言圆点将回退为灰色。")
+        return {}
+    return {k: v for k, v in colors.items() if isinstance(v, str)}
 
 
 def main() -> int:
@@ -637,7 +689,7 @@ def main() -> int:
     if args.render_only:
         assert_publishable(stars_doc)
         log(f"重新渲染 README 与概览图（{len(stars_doc['repos'])} 条数据）")
-        emit_outputs(stars_doc, taxonomy, cfg)
+        emit_outputs(stars_doc, taxonomy, cfg, load_language_colors())
         return 0
 
     log("步骤 1/4：拉取 Star 列表")
@@ -750,7 +802,8 @@ def main() -> int:
         )
 
     log("步骤 4/4：渲染 README 与概览图")
-    emit_outputs(stars_doc, taxonomy, cfg, dry_run=args.dry_run)
+    emit_outputs(stars_doc, taxonomy, cfg, load_language_colors(),
+                 dry_run=args.dry_run)
 
     log("完成。")
     return 0
