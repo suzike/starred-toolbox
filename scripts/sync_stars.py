@@ -33,7 +33,6 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import quote
 
 # 同目录模块。脚本直接运行时 sys.path[0] 即 scripts/；
 # validate_render.py 导入本模块前也已把 scripts/ 插入 sys.path。
@@ -343,27 +342,14 @@ def fmt_stars(n: int) -> str:
     return str(n)
 
 
-def shields(label: str, message: str, color: str, logo: str = "") -> str:
-    """构造 shields.io 静态徽章 URL。
+def build_overview_payload(repos: dict, taxonomy: dict, cfg: dict) -> dict:
+    """汇总概览卡需要的三段数据：指标、分类分布、语言分布。
 
-    徽章内容是 SVG 文本节点，由客户端渲染，中文不会被服务端字体限制。
-    需要注意 shields 的转义规则：`-` 复用为分隔符，`_` 复用为空格，
-    因此出现在 label/message 里的这两个字符都要各自重复一次。
-    """
-    def part(s: str) -> str:
-        return quote(s.replace("-", "--").replace("_", "__").replace(" ", "_"))
+    只输出「标签 + 计数」，标签来自 taxonomy 的分类标题、编程语言名或固定
+    文案，不含任何与单个仓库相关的信息——这是概览图可以公开的前提。
 
-    url = f"https://img.shields.io/badge/{part(label)}-{part(message)}-{color}?style=flat-square"
-    if logo:
-        url += f"&logo={quote(logo)}&logoColor=white"
-    return url
-
-
-def build_overview_sections(repos: dict, taxonomy: dict) -> list[dict]:
-    """汇总用于概览图的两个分布：分类分布与语言分布。
-
-    只输出「标签 + 计数」，标签来自 taxonomy 的分类标题或语言名，
-    不含任何与单个仓库相关的信息。
+    语言这里不做截断：原先是「取前 8 种」，现在概要图改用胶囊标签排布，
+    全部语言也只需要两行，截断反而是白白丢信息。
     """
     cats = taxonomy["categories"]
     active = [r for r in repos.values() if r.get("starred_active", True)]
@@ -380,20 +366,26 @@ def build_overview_sections(repos: dict, taxonomy: dict) -> list[dict]:
     for r in active:
         lang = r.get("language") or "未标注"
         lang_count[lang] = lang_count.get(lang, 0) + 1
-    lang_rows = sorted(lang_count.items(), key=lambda x: (-x[1], x[0]))[:8]
+    lang_rows = sorted(lang_count.items(), key=lambda x: (-x[1], x[0]))
 
-    return [
-        {
-            "title": "分类分布",
-            "note": f"{len(cat_rows)} 个分类 · {len(active)} 个条目",
-            "rows": cat_rows,
-        },
-        {
-            "title": "语言分布",
-            "note": f"共 {len(lang_count)} 种 · 取前 {len(lang_rows)}",
-            "rows": lang_rows,
-        },
+    self_owners = [o.lower() for o in cfg.get("self_owners", [])]
+    mine_n = sum(1 for r in active
+                 if r["full_name"].split("/")[0].lower() in self_owners)
+    priv_n = sum(1 for r in active if r.get("private"))
+
+    # 四个标签统一为名词短语，避免出现「个分类」这类量词开头、与其余三项
+    # 不同调的情况
+    kpis: list[tuple[str, str]] = [
+        (str(len(active)), "收录仓库"),
+        (str(len(cat_rows)), "分类"),
     ]
+    if mine_n:
+        kpis.append((str(mine_n), "自研项目"))
+    # 私有仓库数量本身就是「基本信息」，但只有在策略允许公开时才出现
+    if priv_n and cfg.get("publish_private"):
+        kpis.append((str(priv_n), "私有仓库"))
+
+    return {"kpis": kpis, "categories": cat_rows, "languages": lang_rows}
 
 
 def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
@@ -408,7 +400,6 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     for key in grouped:
         grouped[key].sort(key=lambda x: (-x["stars"], x["full_name"].lower()))
 
-    total = len(repos)
     priv_count = sum(1 for r in repos.values() if r.get("private"))
     present = [c for c in cats if grouped.get(c["key"])]
     last_sync = stars_doc.get("last_sync", "")
@@ -423,36 +414,13 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     out: list[str] = []
     out.append("# Starred Toolbox")
     out.append("")
-
-    # 徽章行。放在 H1 之后、正文之前，作为一眼可读的状态摘要。
-    # 前四个是静态徽章（数值由脚本写入 URL），最后一个是 GitHub Actions 的
-    # 动态徽章——它能直接反映「定时同步是否还在正常工作」，是这条自动化链路
-    # 唯一的可视化健康指示。
-    badges = [
-        f"![收录 {total} 个仓库]({shields('收录', f'{total} 个仓库', '4F7DF3')})",
-        f"![{len(present)} 个分类]({shields('分类', f'{len(present)} 个', '8E6BF2')})",
-    ]
-    if mine:
-        badges.append(f"![自研 {len(mine)} 个]({shields('自研', f'{len(mine)} 个', '5B8DEF')})")
-    if last_sync:
-        badges.append(
-            f"![最后同步 {last_sync}]({shields('同步', last_sync.split(' ')[0], '64748B')})"
-        )
-    repo_slug = cfg.get("repo", "")
-    if repo_slug:
-        badges.append(
-            f"![定时同步状态](https://github.com/{repo_slug}"
-            "/actions/workflows/sync-stars.yml/badge.svg?branch=main)"
-        )
-    out.append(" ".join(badges))
-    out.append("")
-    out.append("> 我在 GitHub 星标的工具与资源归档。来源只有一个：**我的 Star**。")
-    out.append("> 未经星标的内容不会出现在这里。归类与解读由脚本自动生成。")
+    out.append("> 我在 GitHub 星标的工具与资源归档。收录来源只有一个：**我的 Star**。")
+    out.append("> 未经星标的内容不会出现在这里；归类与解读由脚本自动生成。")
     out.append("")
     if priv_count and cfg.get("publish_private"):
         out.append(
-            f"<sub>其中 {priv_count} 个为本人的私有仓库。此处只列出名称、描述与链接等"
-            "基本信息，其代码与文件内容不对外释放，点击链接需要对应访问权限。</sub>"
+            f"<sub>{priv_count} 个私有仓库仅公开名称、描述与链接等基本信息，"
+            "代码与文件内容不对外释放，点击链接需要对应的访问权限。</sub>"
         )
     elif stars_doc.get("excluded_private"):
         out.append(
@@ -461,24 +429,57 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
         )
     out.append("")
 
-    # 概览：分布图 + 最近加入。图由 scripts/render_overview.py 生成，
-    # 浅色/深色两版通过 <picture> 随 GitHub 主题切换。
-    out.append("## 概览")
-    out.append("")
+    # 概览卡：指标 + 分类分布 + 语言分布合并成一张 SVG，由
+    # scripts/render_overview.py 生成。浅色/深色两版交给 <picture> 按当前
+    # 主题切换，避免深色主题下突然出现一块刺眼的白底图片。
+    #
+    # 早先版本用的是 shields.io 静态徽章 + 图下再补一行同步时间，结果是
+    # 「收录数」在徽章、概览图、页脚三处各出现一次，顶部还有五个颜色各不
+    # 相同的小色块互相抢注意力。现在状态信息统一由概览卡承担，
+    # 只有「同步是否还活着」留在页脚，因为那一项需要动态徽章。
     out.append("<picture>")
     out.append('  <source media="(prefers-color-scheme: dark)" '
                'srcset="assets/overview-dark.svg">')
-    out.append('  <img alt="分类分布与语言分布" src="assets/overview-light.svg">')
+    out.append('  <img alt="收藏概览：收录总数、分类分布与语言分布" '
+               'src="assets/overview-light.svg">')
     out.append("</picture>")
     out.append("")
-    if last_sync:
-        out.append(f"<sub>最后同步：{last_sync}</sub>")
+
+    # 目录：双列排布，把 11 个分类压到 6 行。
+    # 用 HTML 表格而不是 Markdown 表格，是因为需要「分类 | 数量」重复两次
+    # 才能形成两列——Markdown 表格做不到，硬写会多出一行空表头。
+    # 原先的「占比」列用 █ 方块字符，问题有两个：颜色继承正文字色无法控制，
+    # 且不同平台的方块字形宽度不一致，条目一多就参差不齐。
+    out.append("## 目录")
+    out.append("")
+    out.append('<table width="100%">')
+    pairs = [(c, len(grouped[c["key"]])) for c in present]
+    for i in range(0, len(pairs), 2):
+        chunk = pairs[i:i + 2]
+        cells = []
+        for c, n in chunk:
+            # 显式指定列宽：不指定时浏览器按内容自动分配，左右两组会因为
+            # 各自最长分类名不同而宽度不等，看起来像没对齐。用百分比而不是
+            # 像素，是为了让四列无论容器多宽都保持 4 : 1 的比例。
+            cells.append(
+                f'<td width="40%"><a href="#{slugify(c["title"])}">'
+                f'{c["title"]}</a></td>'
+            )
+            cells.append(f'<td width="10%" align="right">{n}</td>')
+        # 补齐奇数列，让最后一行的单元格数与其他行一致
+        if len(chunk) == 1:
+            cells.extend(['<td width="40%"></td>', '<td width="10%"></td>'])
+        out.append("<tr>" + "".join(cells) + "</tr>")
+    out.append("</table>")
+    out.append("")
+    if mine:
+        out.append(f"<sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 {len(mine)} 个。</sub>")
         out.append("")
 
     recent = sorted(repos.values(),
                     key=lambda x: x.get("starred_at") or "", reverse=True)[:5]
     if recent:
-        out.append("### 最近加入")
+        out.append("## 最近加入")
         out.append("")
         out.append("| 仓库 | 分类 | 星标于 |")
         out.append("| :--- | :--- | :--- |")
@@ -489,27 +490,12 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
                        f"{(r.get('starred_at') or '')[:10]} |")
         out.append("")
 
-    # 目录：表格形式，`占比` 列用方块字符近似条形，比纯文本列表更容易看出重心。
-    out.append("## 目录")
-    out.append("")
-    out.append("| 分类 | 数量 | 占比 |")
-    out.append("| :--- | ---: | :--- |")
-    peak = max((len(grouped[c["key"]]) for c in present), default=1)
-    for c in present:
-        n = len(grouped[c["key"]])
-        blocks = "█" * max(1, round(16 * n / peak))
-        out.append(f"| [{c['title']}](#{slugify(c['title'])}) | {n} | `{blocks}` |")
-    out.append("")
-    if mine:
-        out.append(f"<sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 {len(mine)} 个。</sub>")
-        out.append("")
-
     # 分类正文
     for c in present:
         items = grouped[c["key"]]
         out.append(f"## {c['title']}")
         out.append("")
-        out.append(f"<sub>共 {len(items)} 个 · [返回目录](#目录)</sub>")
+        out.append(f"<sub>{len(items)} 个 · [返回目录](#目录)</sub>")
         out.append("")
         for r in items:
             owner = r["full_name"].split("/")[0].lower()
@@ -527,7 +513,9 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
             if r.get("what"):
                 out.append(f"  {r['what']}")
             if r.get("why"):
-                out.append(f"  <sub>↳ {r['why']}</sub>")
+                # 不再加「↳」前缀：what 是正文字号、why 是小号灰字，
+                # 层级已经由字号与灰度区分开，多一个符号只是噪音。
+                out.append(f"  <sub>{r['why']}</sub>")
         out.append("")
 
     # 自研项目索引
@@ -552,6 +540,16 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
     out.append("<details>")
     out.append("<summary>这个归档是怎么运转的</summary>")
     out.append("")
+    # 动态徽章放在折叠区而不是顶部：它是「这条自动化链路还活着吗」的唯一
+    # 实时指示，但它属于运行细节，不该和内容概览争顶部的位置。
+    repo_slug = cfg.get("repo", "")
+    if repo_slug:
+        workflow = f"https://github.com/{repo_slug}/actions/workflows/sync-stars.yml"
+        out.append(f"[![定时同步状态]({workflow}/badge.svg?branch=main)]({workflow})")
+        out.append("")
+    if last_sync:
+        out.append(f"<sub>最后同步 {last_sync}</sub>")
+        out.append("")
     out.append("- 唯一来源是本账号的 Star 列表，由 GitHub Actions 每天定时拉取，"
                "不做任何主动发现。")
     out.append("- 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；"
@@ -573,7 +571,7 @@ def emit_outputs(stars_doc: dict, taxonomy: dict, cfg: dict, dry_run: bool = Fal
     content = render_readme(stars_doc, taxonomy, cfg)
     active = {k: v for k, v in stars_doc["repos"].items()
               if v.get("starred_active", True)}
-    sections = build_overview_sections(active, taxonomy)
+    sections = build_overview_payload(active, taxonomy, cfg)
     if dry_run:
         log("  [dry-run] 未写入文件")
         return

@@ -247,12 +247,21 @@ README 全部由脚本生成，**没有任何一段是手工写的**。改样式
 
 | 区块 | 生成位置 | 说明 |
 |---|---|---|
-| 状态徽章行 | `render_readme()` | 前 4 个是 shields.io 静态徽章，数值由脚本写进 URL；最后一个是 GitHub Actions 动态徽章，直接反映定时同步是否正常 |
-| 概览图 | `render_overview.py` | 分类分布 + 语言分布，浅色/深色两版 |
+| 概览卡 | `render_overview.py` | 一张 SVG 里放三段：指标行（收录数/分类数/自研数/私有数）+ 分类分布条形 + 语言分布胶囊。浅色/深色两版 |
+| 目录 | `render_readme()` | HTML 表格，两列并排，11 个分类压到 6 行 |
 | 最近加入 | `render_readme()` | 按 `starred_at` 倒序取前 5 条 |
-| 目录 | `render_readme()` | 表格，`占比` 列用方块字符近似条形 |
 | 分类正文 | `render_readme()` | 每条 3 行：名称与标记 / 这是什么 / 什么时候用 |
 | 我的自研项目 | `render_readme()` | `self_owners` 名下仓库的快捷索引 |
+| 运行状态 | `render_readme()` | 放在页脚 `<details>` 里的折叠区，含 Actions 动态徽章与最后同步时间 |
+
+设计上刻意保持克制，有两条成文的取舍：
+
+- **不用 shields.io 做静态数值徽章。** 早先版本顶部有 4 个静态徽章 + 1 个动态徽章，
+  结果是收录数在徽章、概览图、页脚三处各出现一次，顶部还并排着 5 个颜色互不相干的
+  小色块互相抢注意力。现在静态数值统一交给概览卡，只有「同步是否还活着」留在页脚，
+  因为那一项必须用动态徽章。
+- **目录不用 `████` 方块字符做占比条。** 方块的颜色继承正文字色，无法控制；不同平台的
+  方块字形宽度也不一致，条目一多就参差不齐。改用双列表格后既省一半高度，也没有对齐问题。
 
 ### `assets/` 是生成物
 
@@ -265,7 +274,7 @@ README 里用 `<picture>` 引用这两份图，让 GitHub 跟随用户主题自�
 ```html
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/overview-dark.svg">
-  <img alt="分类分布与语言分布" src="assets/overview-light.svg">
+  <img alt="收藏概览：收录总数、分类分布与语言分布" src="assets/overview-light.svg">
 </picture>
 ```
 
