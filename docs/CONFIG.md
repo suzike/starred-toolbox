@@ -107,13 +107,35 @@ Secret 配好之后：
 1. 进入 **Actions** 标签页
 2. 左侧选择 **同步 Star 归档**
 3. 点击 **Run workflow**
-4. 把 `force_reanalyze` 勾上（首次运行需要，用来把已有的占位解读替换成模型输出）
+4. `force_reanalyze` **不要勾**（原因见下）
 5. 运行完成后，README 会自动更新并提交
 
 之后每天 UTC 22:00（北京时间早 6:00）自动同步，无需干预。
 
-> **未配置 `STAR_TOKEN` 时，定时任务会跳过而不是失败。** 工作流第一步会检查凭据，
-> 缺失时输出一条 warning 并结束，避免每天发送失败通知。
+### 为什么首次不要勾 `force_reanalyze`
+
+`force_reanalyze` 会**无视缓存，对全部条目重新调用一次大模型**（当前 65 条）。
+现有 `data/stars.json` 里已经写好了每条的中文解读，标记为 `analyzed_by: bootstrap`。
+脚本判定「需要重新解读」的条件是 `what` 为空，或 `analyzed_by == "rule"`
+（即上一次是关键词兜底）。`bootstrap` 不满足这两个条件，因此正常同步不会重做它们——
+勾上反而会白花 65 次调用。
+
+只有在这两种情况下才需要勾：
+
+- 换了模型或改了归类标准，想整体重做一遍；
+- 此前的解读确认是规则兜底的，想替换成模型输出。
+
+也可以只重做单条：本地把该条的 `analyzed_by` 改成 `"rule"`，下次同步会单独重做。
+
+### 两条凭据缺失时的行为差异
+
+| 缺失的 Secret | 行为 |
+|---|---|
+| `STAR_TOKEN` | 工作流第一步输出 **warning** 并**跳过整个任务**，不会失败。这是为了避免在还没配好凭据时每天收到失败通知 |
+| `LLM_API_KEY` | 任务照常运行，但输出一条 **notice**，归类退化为关键词规则、解读退化为 GitHub 官方描述。**此时仍然会正常提交 README**，容易误以为「AI 归类已经生效」 |
+
+判断方法：看 Actions 运行日志顶部的注解，或检查 `data/stars.json` 里
+`analyzed_by` 是否为 `rule`。
 
 ---
 
@@ -137,7 +159,7 @@ python scripts/sync_stars.py
 | `--dry-run` | 只打印流程，不写任何文件 |
 | `--no-llm` | 强制规则归类，用于验证流程连通性（不消耗 API 额度） |
 | `--limit N` | 本次最多处理 N 条，便于小批量试跑 |
-| `--render-only` | 跳过网络请求，仅用本地数据重新渲染 README |
+| `--render-only` | 跳过网络请求，仅用本地数据重新渲染 README **与 `assets/` 下的分布图** |
 | `--reanalyze-all` | 强制全部重新解读（需要 LLM key） |
 
 完整校验（CI 与本地同一套）：
@@ -213,3 +235,59 @@ CI 每次同步都会跑 `validate_render.py`，边界被突破时工作流直�
 
 > 注意历史残留：如果私有仓库信息曾经进入过 Git 提交历史，改配置无法撤回它。
 > 需要重写历史（本地未推送时直接重建 `.git` 最简单）。
+
+---
+
+## 八、README 的构成与生成物
+
+README 全部由脚本生成，**没有任何一段是手工写的**。改样式必须改渲染代码，
+直接编辑 README.md 会在下次同步时被覆盖。
+
+### 页面结构
+
+| 区块 | 生成位置 | 说明 |
+|---|---|---|
+| 状态徽章行 | `render_readme()` | 前 4 个是 shields.io 静态徽章，数值由脚本写进 URL；最后一个是 GitHub Actions 动态徽章，直接反映定时同步是否正常 |
+| 概览图 | `render_overview.py` | 分类分布 + 语言分布，浅色/深色两版 |
+| 最近加入 | `render_readme()` | 按 `starred_at` 倒序取前 5 条 |
+| 目录 | `render_readme()` | 表格，`占比` 列用方块字符近似条形 |
+| 分类正文 | `render_readme()` | 每条 3 行：名称与标记 / 这是什么 / 什么时候用 |
+| 我的自研项目 | `render_readme()` | `self_owners` 名下仓库的快捷索引 |
+
+### `assets/` 是生成物
+
+`assets/overview-light.svg` 与 `assets/overview-dark.svg` 每次渲染都会重新生成，
+由 `write_overview_assets()` 写出，并在工作流里随 README 一起提交。
+**不要手工编辑**，下次同步会覆盖。
+
+README 里用 `<picture>` 引用这两份图，让 GitHub 跟随用户主题自动切换：
+
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/overview-dark.svg">
+  <img alt="分类分布与语言分布" src="assets/overview-light.svg">
+</picture>
+```
+
+实测 GitHub 会原样保留这段结构，图片走仓库 raw 路径（不经 camo 代理），
+因此更新后立即可见，不存在缓存滞后。
+
+### 为什么自己画 SVG
+
+- 分布信息（11 个分类的相对占比）徽章服务表达不了，需要真正的条形图。
+- 自绘 SVG 无外部依赖、无网络请求、矢量清晰，样式完全可控。
+- 想把图换成别的形式，只改 `scripts/render_overview.py` 即可，
+  `sync_stars.py` 只负责传「标签 + 计数」，不关心画法。
+
+### 改了渲染逻辑之后
+
+本地先跑一遍再提交，两条命令即可完成验证：
+
+```bash
+python scripts/sync_stars.py --render-only   # 重新生成 README 与 assets/
+python scripts/validate_render.py            # 校验：白名单、条目完整性、图片存在且被引用
+```
+
+`validate_render.py` 会检查两张图是否**既存在于磁盘、又被 README 引用**，
+任一条不满足就报错——这是为了防止出现裂图。CI 每次同步都会跑这套校验，
+不通过则不会提交。
