@@ -60,6 +60,9 @@ GH_TOKEN = os.environ.get("STAR_TOKEN") or os.environ.get("GH_TOKEN") or os.envi
 # 覆盖两边，只能再建一个 Resource owner 为组织的令牌，然后把两份结果合并。
 # 未设置时保持旧行为，不影响只配了一个令牌的部署。
 GH_TOKEN_ORG = (os.environ.get("STAR_TOKEN_ORG") or "").strip()
+# 只有星数、pushed_at 这类元数据变化时，最快多久落盘一次（小时）。
+# 设为 0 表示每次都落盘（回到「星数一动就提交」的行为）。
+METADATA_REFRESH_HOURS = float(os.environ.get("METADATA_REFRESH_HOURS") or "24")
 LLM_KEY = os.environ.get("LLM_API_KEY", "").strip()
 # 用 or 而非 get 默认值：Actions 中未定义的 vars 会传入空字符串，
 # 空字符串会让 get(key, default) 拿不到默认值。
@@ -264,6 +267,52 @@ def _fetch_stars_with(token: str, label: str) -> tuple[str, dict[str, dict]]:
             break
         cursor = block["pageInfo"]["endCursor"]
     return login, repos
+
+
+def last_sync_age_hours(last_sync: str) -> float:
+    """last_sync 距现在多少小时。解析不了就当作「很久以前」，即允许落盘。"""
+    if not last_sync:
+        return float("inf")
+    try:
+        t = datetime.strptime(last_sync, "%Y-%m-%d %H:%M UTC").replace(
+            tzinfo=timezone.utc)
+    except ValueError:
+        return float("inf")
+    return (datetime.now(timezone.utc) - t).total_seconds() / 3600
+
+
+def describe_changes(before_json: str, after_json: str) -> list[str]:
+    """列出这次相比上次到底变了什么。
+
+    存在的意义是把「条目增减」和「元数据微调」区分开：前者是用户真正关心的，
+    后者（比如别人给某个仓库点了 star 导致 star 数 +1）在高频同步下会天天发生。
+    日志里说清楚，才能判断这次的提交值不值得。
+    """
+    before = json.loads(before_json)
+    after = json.loads(after_json)
+    lines: list[str] = []
+
+    added = sorted(set(after) - set(before))
+    removed = sorted(set(before) - set(after))
+    if added:
+        names = "、".join(after[k].get("full_name", k) for k in added[:8])
+        lines.append(f"  条目新增 {len(added)} 个：{names}"
+                     + ("…" if len(added) > 8 else ""))
+    if removed:
+        names = "、".join(before[k].get("full_name", k) for k in removed[:8])
+        lines.append(f"  条目移除 {len(removed)} 个：{names}"
+                     + ("…" if len(removed) > 8 else ""))
+
+    meta = []
+    for k in sorted(set(before) & set(after)):
+        fields = sorted(f for f in set(before[k]) | set(after[k])
+                        if before[k].get(f) != after[k].get(f))
+        if fields:
+            meta.append(f"{after[k].get('full_name', k)}[{','.join(fields)}]")
+    if meta:
+        lines.append(f"  元数据变化 {len(meta)} 条："
+                     + "、".join(meta[:6]) + ("…" if len(meta) > 6 else ""))
+    return lines
 
 
 def rule_category(repo: dict, taxonomy: dict) -> str:
@@ -857,11 +906,28 @@ def main() -> int:
     # 「数据最后一次变动」，这也是 README 上更该展示的信息。
     # 首次运行（last_sync 还为空）例外，无论如何都要落一个值。
     snapshot_after = json.dumps(local, ensure_ascii=False, sort_keys=True)
-    if snapshot_before != snapshot_after or not stars_doc.get("last_sync"):
+    # 「条目变化」才是用户真正关心的：新增星标、取消星标、需要重新解读。
+    structural_change = bool(new_keys or unstarred or unanalyzed)
+
+    if snapshot_before == snapshot_after and stars_doc.get("last_sync"):
+        log("  本次无任何变化，保持 last_sync 不变")
+    elif not structural_change and last_sync_age_hours(stars_doc.get("last_sync", "")) < METADATA_REFRESH_HOURS:
+        # 只剩星数、pushed_at 这类元数据在动。收录了近百个热门仓库后，别人给它们
+        # 点 star 是每小时都在发生的事，逐次提交会让仓库历史被大量
+        # 「chore: 同步」刷屏。这类变化攒着，每 METADATA_REFRESH_HOURS 小时随
+        # 任意一次运行一起落盘。
+        #
+        # 关键点：条目增减不受这条限制——用户点了新星标，下一次运行仍会立刻生效。
+        for line in describe_changes(snapshot_before, snapshot_after):
+            log(line)
+        log(f"  以上仅为元数据微调，距上次落盘不足 {METADATA_REFRESH_HOURS} 小时，"
+            "本次跳过写入（条目增减不受此限制）")
+        return 0
+    else:
+        for line in describe_changes(snapshot_before, snapshot_after):
+            log(line)
         stars_doc["last_sync"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
         log("  数据有变化，更新 last_sync")
-    else:
-        log("  本次无实质变化，保持 last_sync 不变（避免纯时间戳的噪音提交）")
 
     active = sum(1 for v in local.values() if v.get("starred_active", True))
     log(f"步骤 3/4：写回数据层（活跃 {active} / 累计 {len(local)}）")
