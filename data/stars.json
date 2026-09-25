@@ -1,6 +1,6 @@
 {
   "excluded_private": 0,
-  "last_sync": "2026-09-25 16:45 UTC",
+  "last_sync": "2026-09-25 16:54 UTC",
   "login": "suzike",
   "repos": {
     "521xueweihan/hellogithub": {
@@ -17,7 +17,7 @@
       "pushed_at": "2026-09-20",
       "starred_active": true,
       "starred_at": "2019-12-26T14:37:42Z",
-      "stars": 178542,
+      "stars": 178543,
       "topics": [
         "awesome",
         "github",
@@ -73,7 +73,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2026-08-08T00:18:43Z",
-      "stars": 99014,
+      "stars": 99015,
       "topics": [
         "agent-skills",
         "antigravity",
@@ -169,7 +169,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-24T13:47:52Z",
-      "stars": 41206,
+      "stars": 41209,
       "topics": [
         "agent",
         "agent-skills",
@@ -216,7 +216,7 @@
       "pushed_at": "2026-06-14",
       "starred_active": true,
       "starred_at": "2026-05-04T10:01:03Z",
-      "stars": 28416,
+      "stars": 28417,
       "topics": [
         "aigc",
         "comfyui",
@@ -387,7 +387,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-13T13:33:07Z",
-      "stars": 235862,
+      "stars": 235868,
       "topics": [
         "ai-agents",
         "cordis",
@@ -734,7 +734,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-22T07:45:06Z",
-      "stars": 1392,
+      "stars": 1393,
       "topics": [
         "agent-skill",
         "ai-video",
@@ -1131,7 +1131,7 @@
       "pushed_at": "2026-09-02",
       "starred_active": true,
       "starred_at": "2026-09-24T13:46:06Z",
-      "stars": 510311,
+      "stars": 510315,
       "topics": [
         "awesome",
         "awesome-list",
@@ -1529,6 +1529,37 @@
       "what": "DeepSeek Harness 的主题提案与可视化主题设计器插件。",
       "why": "想自定义 DeepSeek Harness 外观时。"
     },
+    "suzike/juzhen-dock": {
+      "analyzed_at": "2026-09-25T16:54:35Z",
+      "analyzed_by": "llm",
+      "archived": false,
+      "category": "productivity",
+      "description": "聚珍 · 常驻 Windows 屏幕右侧的桌面入口。单份 UI 源码产出浏览器原型与 Electron 桌面版两态，含 27 条构建守卫与走查探针。",
+      "fork": false,
+      "full_name": "suzike/juzhen-dock",
+      "language": "HTML",
+      "license": "MIT",
+      "private": false,
+      "pushed_at": "2026-09-25",
+      "starred_active": true,
+      "starred_at": "2026-09-25T16:50:17Z",
+      "stars": 1,
+      "topics": [
+        "ai",
+        "conpty",
+        "desktop-app",
+        "electron",
+        "launcher",
+        "productivity",
+        "rag",
+        "rag-knowledge-base",
+        "terminal",
+        "windows"
+      ],
+      "url": "https://github.com/suzike/juzhen-dock",
+      "what": "常驻 Windows 屏幕右侧的桌面入口工具，同一份 UI 源码可产出浏览器原型与 Electron 桌面版。",
+      "why": "需要在 Windows 桌面侧边常驻一个快速启动入口，并兼顾浏览器预览与桌面打包时。"
+    },
     "suzike/llm_wiki": {
       "analyzed_at": "2026-09-15T04:00:00Z",
       "analyzed_by": "bootstrap",
@@ -1656,7 +1687,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-17T01:59:35Z",
-      "stars": 7203,
+      "stars": 7204,
       "topics": [
         "agent",
         "browser-use",
@@ -1680,7 +1711,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-14T13:21:24Z",
-      "stars": 5000,
+      "stars": 5001,
       "topics": [],
       "url": "https://github.com/Tencent/teamai-cli",
       "what": "面向团队场景的 AI 命令行工具。",
@@ -1700,7 +1731,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-15T02:52:19Z",
-      "stars": 29987,
+      "stars": 29988,
       "topics": [
         "agent",
         "agentic",
@@ -1781,7 +1812,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-11T15:07:57Z",
-      "stars": 71574,
+      "stars": 71575,
       "topics": [
         "agent-skills",
         "architecture-as-code",
@@ -1822,7 +1853,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-21T04:32:01Z",
-      "stars": 5701,
+      "stars": 5703,
       "topics": [
         "ai-agent",
         "coding-agent",
