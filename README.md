@@ -3,7 +3,7 @@
 > 我在 GitHub 星标的工具与资源归档。收录来源只有一个：**我的 Star**。
 > 未经星标的内容不会出现在这里；归类与解读由脚本自动生成。
 
-<sub>10 个私有仓库仅公开名称、描述与链接等基本信息，代码与文件内容不对外释放，点击链接需要对应的访问权限。</sub>
+<sub>11 个私有仓库仅公开名称、描述与链接等基本信息，代码与文件内容不对外释放，点击链接需要对应的访问权限。</sub>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/overview-dark.svg">
@@ -13,55 +13,59 @@
 ## 目录
 
 <table width="100%">
-<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">10</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">5</td></tr>
-<tr><td width="320"><a href="#知识库rag-与记忆">知识库、RAG 与记忆</a></td><td width="60" align="right">4</td><td width="320"><a href="#matlab-simulink-与基于模型的设计">MATLAB / Simulink 与基于模型的设计</a></td><td width="60" align="right">7</td></tr>
-<tr><td width="320"><a href="#汽车电子车载测试与控制">汽车电子、车载测试与控制</a></td><td width="60" align="right">7</td><td width="320"><a href="#内容创作与多媒体生成">内容创作与多媒体生成</a></td><td width="60" align="right">6</td></tr>
-<tr><td width="320"><a href="#信息聚合与效率工具">信息聚合与效率工具</a></td><td width="60" align="right">4</td><td width="320"><a href="#编程学习与计算机基础">编程学习与计算机基础</a></td><td width="60" align="right">15</td></tr>
+<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">12</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">10</td></tr>
+<tr><td width="320"><a href="#知识库rag-与记忆">知识库、RAG 与记忆</a></td><td width="60" align="right">4</td><td width="320"><a href="#matlab-simulink-与基于模型的设计">MATLAB / Simulink 与基于模型的设计</a></td><td width="60" align="right">8</td></tr>
+<tr><td width="320"><a href="#汽车电子车载测试与控制">汽车电子、车载测试与控制</a></td><td width="60" align="right">8</td><td width="320"><a href="#内容创作与多媒体生成">内容创作与多媒体生成</a></td><td width="60" align="right">6</td></tr>
+<tr><td width="320"><a href="#信息聚合与效率工具">信息聚合与效率工具</a></td><td width="60" align="right">4</td><td width="320"><a href="#编程学习与计算机基础">编程学习与计算机基础</a></td><td width="60" align="right">16</td></tr>
 <tr><td width="320"><a href="#机器学习与深度学习框架">机器学习与深度学习框架</a></td><td width="60" align="right">3</td><td width="320"><a href="#工程方法论与研发流程">工程方法论与研发流程</a></td><td width="60" align="right">2</td></tr>
-<tr><td width="320"><a href="#其他">其他</a></td><td width="60" align="right">2</td><td width="320"></td><td width="60"></td></tr>
+<tr><td width="320"><a href="#其他">其他</a></td><td width="60" align="right">3</td><td width="320"></td><td width="60"></td></tr>
 </table>
 
-<sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 19 个。</sub>
+<sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 20 个。</sub>
 
 ## 最近加入
 
 | 仓库 | 分类 | 语言 | 星标于 |
 | :--- | :--- | :--- | ---: |
-| [Tencent/WeKnora](https://github.com/Tencent/WeKnora) | 知识库、RAG 与记忆 | Go | 2026-09-15 |
-| [Tencent/teamai-cli](https://github.com/Tencent/teamai-cli) | Agent 扩展、Skills 与工具协议 | TypeScript | 2026-09-14 |
-| [Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator) | 内容创作与多媒体生成 | HTML | 2026-09-11 |
-| [tt-a1i/archify](https://github.com/tt-a1i/archify) | 内容创作与多媒体生成 | JavaScript | 2026-09-11 |
-| [ecubus/EcuBus-Pro](https://github.com/ecubus/EcuBus-Pro) | 汽车电子、车载测试与控制 | C++ | 2026-09-10 |
+| [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | 汽车电子、车载测试与控制 | Go | 2026-09-24 |
+| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 其他 | — | 2026-09-24 |
+| [LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance) | Agent 扩展、Skills 与工具协议 | JavaScript | 2026-09-22 |
+| [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | Agent 扩展、Skills 与工具协议 | TypeScript | 2026-09-21 |
+| [zai-org/ZCode](https://github.com/zai-org/ZCode) | AI Agent 与编码智能体 | TypeScript | 2026-09-21 |
 
 ## AI Agent 与编码智能体
 
-<sub>10 个 · [返回目录](#目录)</sub>
+<sub>12 个 · [返回目录](#目录)</sub>
 
-- **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** <sub>TypeScript · ★ 224.3k</sub>
+- **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** <sub>TypeScript · ★ 235.8k</sub>
   插件化的 DeepSeek 智能体运行时，一切能力皆以插件形式接入。
   <sub>想基于 DeepSeek 模型搭建可扩展的编码智能体时。</sub>
-- **[Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)** <sub>Python · ★ 187.3k</sub>
+- **[Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)** <sub>Python · ★ 187.6k</sub>
   可自主拆解并执行任务的开源 AI 智能体框架。
   <sub>想研究自主 Agent 的早期实现思路时。</sub>
-- **[666ghj/MiroFish](https://github.com/666ghj/MiroFish)** <sub>Python · ★ 73.3k</sub>
+- **[OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)** <sub>TypeScript · ★ 89.2k</sub>
+  🙌 OpenHands: AI-Driven Development
+- **[666ghj/MiroFish](https://github.com/666ghj/MiroFish)** <sub>Python · ★ 74.6k</sub>
   通用群体智能引擎，用于多主体行为建模与预测。
   <sub>需要做群体行为仿真或预测类建模时。</sub>
 - **[Hmbown/Codewhale](https://github.com/Hmbown/Codewhale)** <sub>Rust · ★ 41k</sub>
   用 Rust 构建的开源终端编码智能体。
   <sub>想要一个开源、可自行改造的终端编码 Agent 时。</sub>
-- **[THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC)** <sub>TypeScript · ★ 36.9k</sub>
+- **[THU-MAIC/OpenMAIC](https://github.com/THU-MAIC/OpenMAIC)** <sub>TypeScript · ★ 39k</sub>
   多智能体驱动的交互式课堂，一键生成沉浸式学习体验。
   <sub>关注多智能体在教育场景如何落地时。</sub>
 - **[AndyMik90/Aperant](https://github.com/AndyMik90/Aperant)** <sub>TypeScript · ★ 14.6k</sub>
   支持跨多个会话自主推进任务的 AI 编码智能体。
   <sub>需要 Agent 在长周期任务上持续工作、而不是单轮对话时。</sub>
+- **[zai-org/ZCode](https://github.com/zai-org/ZCode)** <sub>TypeScript · ★ 6.8k</sub>
+  Z.ai's coding agent harness. Powerful, intelligent, extensible.
 - **[KunAgent/Kun](https://github.com/KunAgent/Kun)** <sub>TypeScript · ★ 6.3k</sub>
   本地优先的 AI 智能体工作台，覆盖编码、写作、设计与研究，统一 GUI 与 TUI 运行时。
   <sub>想要一个统一入口承载多种 Agent 任务、且数据留在本机时。</sub>
-- **[sandroandric/AgentHandover](https://github.com/sandroandric/AgentHandover)** <sub>Python · ★ 701</sub>
+- **[sandroandric/AgentHandover](https://github.com/sandroandric/AgentHandover)** <sub>Python · ★ 700</sub>
   观察用户操作习惯，转成可自改进的技能并交接给编码智能体。
   <sub>想让 Agent 学会你的固定工作方式、不必每次重复交代时。</sub>
-- **[suzike/agentic-island](https://github.com/suzike/agentic-island)** `自研` <sub>TypeScript · ★ 12</sub>
+- **[suzike/agentic-island](https://github.com/suzike/agentic-island)** `自研` <sub>TypeScript · ★ 11</sub>
   常驻 Windows 顶部的 AI 编码智能体监控与审批面板，兼作个人工作台。
   <sub>想让多个 Agent 的运行状态与待审批请求集中可见时。</sub>
 - **[suzike-dev/IntentOS](https://github.com/suzike-dev/IntentOS)** `私有` `自研` <sub>Python · ★ 1</sub>
@@ -70,17 +74,27 @@
 
 ## Agent 扩展、Skills 与工具协议
 
-<sub>5 个 · [返回目录](#目录)</sub>
+<sub>10 个 · [返回目录](#目录)</sub>
 
-- **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** <sub>JavaScript · ★ 94.4k</sub>
+- **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** <sub>JavaScript · ★ 99k</sub>
   面向 AI 编码智能体的生产级工程技能集合。
   <sub>想给 Agent 补上成熟工程实践、减少低级失误时。</sub>
-- **[Tencent/teamai-cli](https://github.com/Tencent/teamai-cli)** <sub>TypeScript · ★ 4.5k</sub>
+- **[Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill)** <sub>TypeScript · ★ 7.2k</sub>
+  Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.
+- **[vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop)** <sub>TypeScript · ★ 5.7k</sub>
+  Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins
+- **[Tencent/teamai-cli](https://github.com/Tencent/teamai-cli)** <sub>TypeScript · ★ 5k</sub>
   面向团队场景的 AI 命令行工具。
   <sub>官方描述较简短，具体用法待补充。</sub>
-- **[omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar)** <sub>TypeScript · ★ 3.6k</sub>
+- **[omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar)** <sub>TypeScript · ★ 3.7k</sub>
   可扩展的侧边栏底座，内置文件编辑、终端、Git 与子代理页面。
   <sub>想给 DeepSeek Harness 增加自定义侧边栏能力时。</sub>
+- **[LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance)** <sub>JavaScript · ★ 1.4k</sub>
+  🎬 Evidence-led Seedance 2.5 / 2.0 prompt library: 463 cases traced to original posts, 264 cross-model retest runs with public verdicts, 25 copy-ready templates, 60 installable AI-video Skills. EN / 中文 / 日本語.
+- **[alchaincyf/huashu-report](https://github.com/alchaincyf/huashu-report)** <sub>Python · ★ 423</sub>
+  机构级研究报告 Agent Skill · 规范从 2026 年顶级机构报告实物反向提炼，42 份采集／41 份进量化基线（Stanford/McKinsey/BCG/OpenAI/PwC/World Bank 等）· 六种报告原型 + 8 种图表模式 + 可复用生产流水线 · 跨 agent 通用
+- **[alchaincyf/huashu-chrome](https://github.com/alchaincyf/huashu-chrome)** <sub>JavaScript · ★ 239</sub>
+  让任何 AI agent 操控你自己的 Chrome——带着全部登录态。MCP + Chrome 扩展，Claude Code / Codex / Cursor / Gemini CLI 通用。
 - **[suzike/freestyle-dsh-theme](https://github.com/suzike/freestyle-dsh-theme)** `自研` <sub>TypeScript · ★ 11</sub>
   DeepSeek Harness 的主题提案与可视化主题设计器插件。
   <sub>想自定义 DeepSeek Harness 外观时。</sub>
@@ -92,13 +106,13 @@
 
 <sub>4 个 · [返回目录](#目录)</sub>
 
-- **[Tencent/WeKnora](https://github.com/Tencent/WeKnora)** <sub>Go · ★ 23.3k</sub>
+- **[Tencent/WeKnora](https://github.com/Tencent/WeKnora)** <sub>Go · ★ 30k</sub>
   把原始文档转成可检索的 RAG、推理智能体与自维护 Wiki 的开源知识平台。
   <sub>需要把私有文档沉淀成可问答知识库、且希望自行部署时。</sub>
-- **[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki)** <sub>TypeScript · ★ 19.5k</sub>
+- **[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki)** <sub>TypeScript · ★ 20k</sub>
   把文档自动整理成互链知识库的跨平台桌面应用。
   <sub>同上，两者描述一致，此为星标数更高的版本。</sub>
-- **[zenghui-li/yuxi](https://github.com/zenghui-li/yuxi)** <sub>Python · ★ 136</sub>
+- **[zenghui-li/yuxi](https://github.com/zenghui-li/yuxi)** <sub>Python · ★ 138</sub>
   集成 LightRAG 知识库与知识图谱的多租户 Agent Harness 平台。
   <sub>需要为自己的 Agent 搭一套带知识库与图谱的后端时。</sub>
 - **[suzike/llm_wiki](https://github.com/suzike/llm_wiki)** `自研` <sub>TypeScript · ★ 1</sub>
@@ -107,41 +121,45 @@
 
 ## MATLAB / Simulink 与基于模型的设计
 
-<sub>7 个 · [返回目录](#目录)</sub>
+<sub>8 个 · [返回目录](#目录)</sub>
 
-- **[matlab/matlab-mcp-server](https://github.com/matlab/matlab-mcp-server)** <sub>Go · ★ 1.5k</sub>
+- **[matlab/matlab-mcp-server](https://github.com/matlab/matlab-mcp-server)** <sub>Go · ★ 1.6k</sub>
   MathWorks 官方 MCP server，让 AI 应用直接运行 MATLAB。
   <sub>想让 Claude 等 AI 直接执行 MATLAB 代码时。</sub>
-- **[matlab/simulink-agentic-toolkit](https://github.com/matlab/simulink-agentic-toolkit)** <sub>HTML · ★ 1.1k</sub>
+- **[matlab/simulink-agentic-toolkit](https://github.com/matlab/simulink-agentic-toolkit)** <sub>HTML · ★ 1.2k</sub>
   让 AI 智能体具备 Simulink 与基于模型设计工作能力的官方工具集。
   <sub>想让 Agent 参与 Simulink 建模与 MBD 流程时。</sub>
-- **[matlab/matlab-agentic-toolkit](https://github.com/matlab/matlab-agentic-toolkit)** <sub>MATLAB · ★ 1k</sub>
+- **[matlab/matlab-agentic-toolkit](https://github.com/matlab/matlab-agentic-toolkit)** <sub>MATLAB · ★ 1.1k</sub>
   把 MATLAB 能力封装给 AI 智能体使用的官方工具集。
   <sub>需要让 Agent 稳定调用 MATLAB 工程能力时。</sub>
-- **[matlab/agent-skills-playground](https://github.com/matlab/agent-skills-playground)** <sub>HTML · ★ 178</sub>
+- **[matlab/agent-skills-playground](https://github.com/matlab/agent-skills-playground)** <sub>HTML · ★ 181</sub>
   面向 MATLAB/Simulink 的 Agent Skills 原型与演示沙箱。
   <sub>想为 MATLAB 工作流编写自定义 Agent 技能时的起点。</sub>
 - **[suzike/DeepSeekMatlabCopilot](https://github.com/suzike/DeepSeekMatlabCopilot)** `自研` <sub>MATLAB · ★ 11</sub>
   面向 MATLAB 工程流程的 DeepSeek 辅助工具。
   <sub>想在 MATLAB 工作中接入 DeepSeek 时。</sub>
-- **[suzike-dev/Matlab-Simulink-SuperAgent](https://github.com/suzike-dev/Matlab-Simulink-SuperAgent)** `私有` `自研` <sub>JavaScript · ★ 1</sub>
+- **[suzike-dev/Matlab-Simulink-SuperAgent](https://github.com/suzike-dev/Matlab-Simulink-SuperAgent)** `私有` `自研` <sub>HTML · ★ 1</sub>
   内嵌进 MATLAB/Simulink 界面的 AI 智能体，支持多种模型后端。
   <sub>想在建模环境里直接调用 AI 辅助、不来回切换窗口时。</sub>
 - **[suzike-dev/model-code-to-srs](https://github.com/suzike-dev/model-code-to-srs)** `私有` `自研` <sub>Python · ★ 1</sub>
   从 Simulink/Stateflow 模型与生成代码反推中文软件需求规格的 Agent Skill。
   <sub>需要为已完成的模型补齐可评审 SRS 文档时。</sub>
+- **[suzike-dev/terminal-in-matlab](https://github.com/suzike-dev/terminal-in-matlab)** `私有` `自研` <sub>MATLAB · ★ 1</sub>
+  （暂无描述）
 
 ## 汽车电子、车载测试与控制
 
-<sub>7 个 · [返回目录](#目录)</sub>
+<sub>8 个 · [返回目录](#目录)</sub>
 
-- **[pms67/PID](https://github.com/pms67/PID)** <sub>C · ★ 933</sub>
+- **[alibaba/open-code-review](https://github.com/alibaba/open-code-review)** <sub>Go · ★ 41.2k</sub>
+  Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.
+- **[pms67/PID](https://github.com/pms67/PID)** <sub>C · ★ 937</sub>
   C 语言实现的 PID 控制器。
   <sub>需要在嵌入式项目中集成 PID 控制时。</sub>
-- **[ecubus/EcuBus-Pro](https://github.com/ecubus/EcuBus-Pro)** <sub>C++ · ★ 870</sub>
+- **[ecubus/EcuBus-Pro](https://github.com/ecubus/EcuBus-Pro)** <sub>C++ · ★ 873</sub>
   覆盖 UDS、CAN-TP、DOIP、LIN 与类 CAPL 脚本的汽车 ECU 开发与 HIL 测试工具。
   <sub>做 ECU 诊断、总线通信或 HIL 测试、又不想依赖商业工具链时。</sub>
-- **[auto-py-utils/py-canoe](https://github.com/auto-py-utils/py-canoe)** <sub>Python · ★ 115</sub>
+- **[auto-py-utils/py-canoe](https://github.com/auto-py-utils/py-canoe)** <sub>Python · ★ 118</sub>
   用于控制 Vector CANoe 的 Python 包。
   <sub>想用 Python 脚本驱动 CANoe 时。</sub>
 - **[suzike-dev/Agent2Canape](https://github.com/suzike-dev/Agent2Canape)** `私有` `自研` <sub>Python · ★ 1</sub>
@@ -161,19 +179,19 @@
 
 <sub>6 个 · [返回目录](#目录)</sub>
 
-- **[AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)** <sub>Python · ★ 164.9k</sub>
+- **[AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)** <sub>Python · ★ 165.1k</sub>
   本地部署的 Stable Diffusion 图像生成 Web 界面。
   <sub>想在本机跑文生图、且需要完整参数控制与插件生态时。</sub>
-- **[tt-a1i/archify](https://github.com/tt-a1i/archify)** <sub>JavaScript · ★ 62.5k</sub>
+- **[tt-a1i/archify](https://github.com/tt-a1i/archify)** <sub>JavaScript · ★ 71.6k</sub>
   生成架构图、流程图、时序图与数据流图的自包含 HTML Agent Skill。
   <sub>需要带动效、可导出、可验证的技术图表时。</sub>
-- **[ATH-MaaS/Pixelle-Video](https://github.com/ATH-MaaS/Pixelle-Video)** <sub>Python · ★ 28.1k</sub>
+- **[ATH-MaaS/Pixelle-Video](https://github.com/ATH-MaaS/Pixelle-Video)** <sub>Python · ★ 28.4k</sub>
   AI 全自动短视频生成引擎。
   <sub>需要批量产出短视频内容时。</sub>
 - **[easydiffusion/easydiffusion](https://github.com/easydiffusion/easydiffusion)** <sub>JavaScript · ★ 10.5k</sub>
   一键式本地 AI 绘图工具，面向无技术背景用户。
   <sub>想零配置体验本地图像生成时。</sub>
-- **[Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator)** <sub>HTML · ★ 7.3k</sub>
+- **[Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator)** <sub>HTML · ★ 7.4k</sub>
   把系统架构描述生成独立 HTML/SVG 架构图的 Claude Skill。
   <sub>需要快速产出可分享的架构图、又不想手绘时。</sub>
 - **[suzike/nanju-write-paper](https://github.com/suzike/nanju-write-paper)** `自研` <sub>HTML · ★ 5</sub>
@@ -184,10 +202,10 @@
 
 <sub>4 个 · [返回目录](#目录)</sub>
 
-- **[sansan0/TrendRadar](https://github.com/sansan0/TrendRadar)** <sub>Python · ★ 62.3k</sub>
+- **[sansan0/TrendRadar](https://github.com/sansan0/TrendRadar)** <sub>Python · ★ 62.5k</sub>
   聚合多平台热点与 RSS 的 AI 舆情与趋势监控工具，支持多通道推送。
   <sub>想用关键词订阅热点并定时收到简报时。</sub>
-- **[guaguastandup/zotero-pdf2zh](https://github.com/guaguastandup/zotero-pdf2zh)** <sub>Python · ★ 6.4k</sub>
+- **[guaguastandup/zotero-pdf2zh](https://github.com/guaguastandup/zotero-pdf2zh)** <sub>Python · ★ 6.9k</sub>
   Zotero 的 PDF 中文翻译插件。
   <sub>需要读英文论文并要中文对照时。</sub>
 - **[suzike/Office-Viewer](https://github.com/suzike/Office-Viewer)** `自研` <sub>TypeScript · ★ 2</sub>
@@ -199,18 +217,18 @@
 
 ## 编程学习与计算机基础
 
-<sub>15 个 · [返回目录](#目录)</sub>
+<sub>16 个 · [返回目录](#目录)</sub>
 
-- **[ossu/computer-science](https://github.com/ossu/computer-science)** <sub>HTML · ★ 209k</sub>
+- **[ossu/computer-science](https://github.com/ossu/computer-science)** <sub>HTML · ★ 209.5k</sub>
   免费的计算机科学自学课程路线。
   <sub>想按完整课程体系自学 CS 时。</sub>
-- **[jackfrued/Python-100-Days](https://github.com/jackfrued/Python-100-Days)** <sub>Jupyter Notebook · ★ 186.5k</sub>
+- **[jackfrued/Python-100-Days](https://github.com/jackfrued/Python-100-Days)** <sub>Jupyter Notebook · ★ 186.9k</sub>
   从入门到进阶的 Python 系统教程，按天组织。
   <sub>想按天推进、系统学完 Python 时。</sub>
-- **[521xueweihan/HelloGitHub](https://github.com/521xueweihan/HelloGitHub)** <sub>Python · ★ 176.6k</sub>
+- **[521xueweihan/HelloGitHub](https://github.com/521xueweihan/HelloGitHub)** <sub>Python · ★ 178.5k</sub>
   面向入门者的开源项目推荐月刊。
   <sub>想发现适合上手的开源项目时。</sub>
-- **[justjavac/free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN)** <sub>★ 118.9k</sub>
+- **[justjavac/free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN)** <sub>★ 119.1k</sub>
   免费计算机技术中文书籍索引。
   <sub>需要找中文技术书时。</sub>
 - **[izackwu/TeachYourselfCS-CN](https://github.com/izackwu/TeachYourselfCS-CN)** <sub>★ 22.2k</sub>
@@ -240,9 +258,11 @@
 - **[datawhalechina/team-learning](https://github.com/datawhalechina/team-learning)** <sub>★ 2.4k</sub>
   Datawhale 组队学习计划的资料汇总。
   <sub>想跟着组队节奏推进学习时。</sub>
-- **[yidao620c/core-algorithm](https://github.com/yidao620c/core-algorithm)** <sub>Python · ★ 781</sub>
+- **[yidao620c/core-algorithm](https://github.com/yidao620c/core-algorithm)** <sub>Python · ★ 782</sub>
   常见算法的 Python 实现集合。
   <sub>复习算法实现细节时。</sub>
+- **[alchaincyf/3d-vibe-coding-handbook](https://github.com/alchaincyf/3d-vibe-coding-handbook)** <sub>HTML · ★ 266</sub>
+  《3D Vibe Coding 手册》配套仓库：书的 HTML 版、demo 源码、工具脚本与资源包索引
 - **[suzike/EmbedSummary](https://github.com/suzike/EmbedSummary)** `自研` <sub>★ 1</sub>
   嵌入式开发资源汇总。
   <sub>需要嵌入式方向的资料索引时。</sub>
@@ -265,17 +285,19 @@
 
 <sub>2 个 · [返回目录](#目录)</sub>
 
-- **[xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer](https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer)** <sub>★ 4.7k</sub>
+- **[xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer](https://github.com/xdash/FDE-the-Guidance-Book-of-Forward-Deployed-Engineer)** <sub>★ 4.9k</sub>
   前沿部署工程师（FDE）的从零入门指南。
   <sub>想了解 FDE 岗位的能力模型与工作方法时。</sub>
-- **[huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action)** <sub>Python · ★ 147</sub>
+- **[huangjia2019/sdd-in-action](https://github.com/huangjia2019/sdd-in-action)** <sub>Python · ★ 151</sub>
   规范驱动开发的实战手册，覆盖 Claude Code 与 OpenCode 两条路径。
   <sub>想系统学习 SDD 如何落地到日常开发时。</sub>
 
 ## 其他
 
-<sub>2 个 · [返回目录](#目录)</sub>
+<sub>3 个 · [返回目录](#目录)</sub>
 
+- **[sindresorhus/awesome](https://github.com/sindresorhus/awesome)** <sub>★ 510.3k</sub>
+  😎 Awesome lists about all kinds of interesting topics [NOTE: Pull requests are temporarily disabled until I have a chance to catch up with the existing ones]
 - **[suzike-dev/kill-issue](https://github.com/suzike-dev/kill-issue)** `私有` `自研` <sub>Python · ★ 1</sub>
   仓库暂无描述，用途待补充。
   <sub>信息有限，待补充。</sub>
@@ -293,12 +315,12 @@
 | [suzike-dev/AITrain_Platform](https://github.com/suzike-dev/AITrain_Platform) | 机器学习与深度学习框架 | [suzike-dev/Intelligent-Calibration-platform](https://github.com/suzike-dev/Intelligent-Calibration-platform) | 汽车电子、车载测试与控制 |
 | [suzike-dev/IntentOS](https://github.com/suzike-dev/IntentOS) | AI Agent 与编码智能体 | [suzike-dev/kill-issue](https://github.com/suzike-dev/kill-issue) | 其他 |
 | [suzike-dev/Matlab-Simulink-SuperAgent](https://github.com/suzike-dev/Matlab-Simulink-SuperAgent) | MATLAB / Simulink 与基于模型的设计 | [suzike-dev/model-code-to-srs](https://github.com/suzike-dev/model-code-to-srs) | MATLAB / Simulink 与基于模型的设计 |
-| [suzike-dev/polarion-mcp-server](https://github.com/suzike-dev/polarion-mcp-server) | Agent 扩展、Skills 与工具协议 | [suzike-dev/Vehicle-Thermal-LLM-MultiAgent](https://github.com/suzike-dev/Vehicle-Thermal-LLM-MultiAgent) | 汽车电子、车载测试与控制 |
-| [suzike/agentic-island](https://github.com/suzike/agentic-island) | AI Agent 与编码智能体 | [suzike/DeepSeekMatlabCopilot](https://github.com/suzike/DeepSeekMatlabCopilot) | MATLAB / Simulink 与基于模型的设计 |
-| [suzike/EmbedSummary](https://github.com/suzike/EmbedSummary) | 编程学习与计算机基础 | [suzike/freestyle-dsh-theme](https://github.com/suzike/freestyle-dsh-theme) | Agent 扩展、Skills 与工具协议 |
-| [suzike/llm_wiki](https://github.com/suzike/llm_wiki) | 知识库、RAG 与记忆 | [suzike/nanju-write-paper](https://github.com/suzike/nanju-write-paper) | 内容创作与多媒体生成 |
-| [suzike/Office-Viewer](https://github.com/suzike/Office-Viewer) | 信息聚合与效率工具 | [suzike/RobinRead](https://github.com/suzike/RobinRead) | 信息聚合与效率工具 |
-| [suzike/suzike](https://github.com/suzike/suzike) | 其他 |  |  |
+| [suzike-dev/polarion-mcp-server](https://github.com/suzike-dev/polarion-mcp-server) | Agent 扩展、Skills 与工具协议 | [suzike-dev/terminal-in-matlab](https://github.com/suzike-dev/terminal-in-matlab) | MATLAB / Simulink 与基于模型的设计 |
+| [suzike-dev/Vehicle-Thermal-LLM-MultiAgent](https://github.com/suzike-dev/Vehicle-Thermal-LLM-MultiAgent) | 汽车电子、车载测试与控制 | [suzike/agentic-island](https://github.com/suzike/agentic-island) | AI Agent 与编码智能体 |
+| [suzike/DeepSeekMatlabCopilot](https://github.com/suzike/DeepSeekMatlabCopilot) | MATLAB / Simulink 与基于模型的设计 | [suzike/EmbedSummary](https://github.com/suzike/EmbedSummary) | 编程学习与计算机基础 |
+| [suzike/freestyle-dsh-theme](https://github.com/suzike/freestyle-dsh-theme) | Agent 扩展、Skills 与工具协议 | [suzike/llm_wiki](https://github.com/suzike/llm_wiki) | 知识库、RAG 与记忆 |
+| [suzike/nanju-write-paper](https://github.com/suzike/nanju-write-paper) | 内容创作与多媒体生成 | [suzike/Office-Viewer](https://github.com/suzike/Office-Viewer) | 信息聚合与效率工具 |
+| [suzike/RobinRead](https://github.com/suzike/RobinRead) | 信息聚合与效率工具 | [suzike/suzike](https://github.com/suzike/suzike) | 其他 |
 
 ---
 
@@ -309,7 +331,7 @@
 
 [![定时同步状态](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml/badge.svg?branch=main)](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml)
 
-<sub>最后同步 2026-09-15 03:52 UTC</sub>
+<sub>最后同步 2026-09-25 16:21 UTC</sub>
 
 - 唯一来源是本账号的 Star 列表，由 GitHub Actions 每天定时拉取，不做任何主动发现。
 - 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；没有配置模型密钥时降级为规则归类。
