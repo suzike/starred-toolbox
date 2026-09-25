@@ -619,9 +619,9 @@ def render_readme(stars_doc: dict, taxonomy: dict, cfg: dict) -> str:
         out.append(f"[![定时同步状态]({workflow}/badge.svg?branch=main)]({workflow})")
         out.append("")
     if last_sync:
-        out.append(f"<sub>最后同步 {last_sync}</sub>")
+        out.append(f"<sub>数据更新于 {last_sync}</sub>")
         out.append("")
-    out.append("- 唯一来源是本账号的 Star 列表，由 GitHub Actions 每天定时拉取，"
+    out.append("- 唯一来源是本账号的 Star 列表，由 GitHub Actions 每小时定时拉取，"
                "不做任何主动发现。")
     out.append("- 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；"
                "没有配置模型密钥时降级为规则归类。")
@@ -738,6 +738,11 @@ def main() -> int:
 
     local = stars_doc["repos"]
 
+    # 本次运行前的数据快照，用来判断「有没有实质变化」。
+    # 提高同步频率后（每小时一次）这层判断是必需的：否则 last_sync 每次都会
+    # 刷新，git diff 永远非空，于是每小时产生一次只差一个时间戳的噪音提交。
+    snapshot_before = json.dumps(local, ensure_ascii=False, sort_keys=True)
+
     # 隐私边界：私有仓库默认不进入任何会被提交的文件。
     # 关键点是「两层都要剔除」——README 是渲染产物，data/stars.json 同样会被提交，
     # 只在渲染层过滤等于把名称和描述留在了仓库里。宁可下次重新分析，也不落盘。
@@ -848,7 +853,15 @@ def main() -> int:
             v["category"] = rule_category(v, taxonomy)
             v["what"] = v.get("what") or v.get("description") or "（暂无描述）"
 
-    stars_doc["last_sync"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    # 只在真有变化时推进 last_sync。语义因此从「最后一次检查」变成
+    # 「数据最后一次变动」，这也是 README 上更该展示的信息。
+    # 首次运行（last_sync 还为空）例外，无论如何都要落一个值。
+    snapshot_after = json.dumps(local, ensure_ascii=False, sort_keys=True)
+    if snapshot_before != snapshot_after or not stars_doc.get("last_sync"):
+        stars_doc["last_sync"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+        log("  数据有变化，更新 last_sync")
+    else:
+        log("  本次无实质变化，保持 last_sync 不变（避免纯时间戳的噪音提交）")
 
     active = sum(1 for v in local.values() if v.get("starred_active", True))
     log(f"步骤 3/4：写回数据层（活跃 {active} / 累计 {len(local)}）")

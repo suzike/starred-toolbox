@@ -2,8 +2,16 @@ name: 同步 Star 归档
 
 on:
   schedule:
-    # UTC 22:00 = 北京时间早上 6:00，每天跑一次
-    - cron: "0 22 * * *"
+    # 每小时一次。GitHub 不提供「用户 star 了某个仓库」的 webhook 事件
+    # （watch 事件只在别人 star 你的仓库时触发），所以拿不到事件驱动，
+    # 只能靠轮询。原先每天一次会让新星标最多等 24 小时才出现在图上。
+    #
+    # 刻意避开整点：schedule 事件在整点前后排队最拥挤，实测常被延后十几分钟。
+    # 用第 17 分钟能明显减少延迟。
+    #
+    # 仓库是 public，Actions 不计费、不限分钟数，提高频率没有成本。
+    # 无变更时脚本会自行跳过提交，不会产生噪音 commit。
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       force_reanalyze:
