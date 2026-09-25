@@ -1,6 +1,6 @@
 {
   "excluded_private": 0,
-  "last_sync": "2026-09-25 16:54 UTC",
+  "last_sync": "2026-09-25 17:02 UTC",
   "login": "suzike",
   "repos": {
     "521xueweihan/hellogithub": {
@@ -42,7 +42,7 @@
       "pushed_at": "2026-09-16",
       "starred_active": true,
       "starred_at": "2026-08-08T01:58:25Z",
-      "stars": 74648,
+      "stars": 74652,
       "topics": [
         "agent-memory",
         "financial-forecasting",
@@ -73,7 +73,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2026-08-08T00:18:43Z",
-      "stars": 99015,
+      "stars": 99018,
       "topics": [
         "agent-skills",
         "antigravity",
@@ -169,7 +169,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-24T13:47:52Z",
-      "stars": 41209,
+      "stars": 41213,
       "topics": [
         "agent",
         "agent-skills",
@@ -266,7 +266,7 @@
       "pushed_at": "2026-03-02",
       "starred_active": true,
       "starred_at": "2023-04-12T08:16:39Z",
-      "stars": 165114,
+      "stars": 165115,
       "topics": [
         "ai",
         "ai-art",
@@ -387,7 +387,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-13T13:33:07Z",
-      "stars": 235868,
+      "stars": 235871,
       "topics": [
         "ai-agents",
         "cordis",
@@ -639,7 +639,7 @@
       "pushed_at": "2026-07-29",
       "starred_active": true,
       "starred_at": "2023-04-09T03:18:42Z",
-      "stars": 119100,
+      "stars": 119101,
       "topics": [
         "android",
         "angular",
@@ -1099,7 +1099,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2023-04-09T03:09:04Z",
-      "stars": 187553,
+      "stars": 187554,
       "topics": [
         "agentic-ai",
         "agents",
@@ -1131,7 +1131,7 @@
       "pushed_at": "2026-09-02",
       "starred_active": true,
       "starred_at": "2026-09-24T13:46:06Z",
-      "stars": 510315,
+      "stars": 510318,
       "topics": [
         "awesome",
         "awesome-list",
@@ -1687,7 +1687,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-17T01:59:35Z",
-      "stars": 7204,
+      "stars": 7205,
       "topics": [
         "agent",
         "browser-use",
@@ -1731,7 +1731,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-15T02:52:19Z",
-      "stars": 29988,
+      "stars": 29991,
       "topics": [
         "agent",
         "agentic",
@@ -1792,7 +1792,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-08-31T23:54:27Z",
-      "stars": 39011,
+      "stars": 39012,
       "topics": [],
       "url": "https://github.com/THU-MAIC/OpenMAIC",
       "what": "多智能体驱动的交互式课堂，一键生成沉浸式学习体验。",
@@ -1812,7 +1812,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-11T15:07:57Z",
-      "stars": 71575,
+      "stars": 71578,
       "topics": [
         "agent-skills",
         "architecture-as-code",
@@ -1853,7 +1853,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-21T04:32:01Z",
-      "stars": 5703,
+      "stars": 5704,
       "topics": [
         "ai-agent",
         "coding-agent",
