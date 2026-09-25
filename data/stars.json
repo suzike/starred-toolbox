@@ -1,6 +1,6 @@
 {
   "excluded_private": 0,
-  "last_sync": "2026-09-25 16:21 UTC",
+  "last_sync": "2026-09-25 16:29 UTC",
   "login": "suzike",
   "repos": {
     "521xueweihan/hellogithub": {
@@ -42,7 +42,7 @@
       "pushed_at": "2026-09-16",
       "starred_active": true,
       "starred_at": "2026-08-08T01:58:25Z",
-      "stars": 74644,
+      "stars": 74646,
       "topics": [
         "agent-memory",
         "financial-forecasting",
@@ -73,7 +73,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2026-08-08T00:18:43Z",
-      "stars": 99008,
+      "stars": 99010,
       "topics": [
         "agent-skills",
         "antigravity",
@@ -87,8 +87,8 @@
       "why": "想给 Agent 补上成熟工程实践、减少低级失误时。"
     },
     "alchaincyf/3d-vibe-coding-handbook": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:45Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "learning",
       "description": "《3D Vibe Coding 手册》配套仓库：书的 HTML 版、demo 源码、工具脚本与资源包索引",
@@ -112,12 +112,12 @@
         "vibe-coding"
       ],
       "url": "https://github.com/alchaincyf/3d-vibe-coding-handbook",
-      "what": "《3D Vibe Coding 手册》配套仓库：书的 HTML 版、demo 源码、工具脚本与资源包索引",
-      "why": ""
+      "what": "《3D Vibe Coding 手册》配套仓库，含 HTML 书稿、示例源码与资源索引。",
+      "why": "想按教程学习 3D 与 AI 生成建模、并动手跑示例时。"
     },
     "alchaincyf/huashu-chrome": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "agent-tooling",
       "description": "让任何 AI agent 操控你自己的 Chrome——带着全部登录态。MCP + Chrome 扩展，Claude Code / Codex / Cursor / Gemini CLI 通用。",
@@ -132,12 +132,12 @@
       "stars": 239,
       "topics": [],
       "url": "https://github.com/alchaincyf/huashu-chrome",
-      "what": "让任何 AI agent 操控你自己的 Chrome——带着全部登录态。MCP + Chrome 扩展，Claude Code / Codex / Cursor / Gemini CLI 通用。",
-      "why": ""
+      "what": "通过 MCP 与 Chrome 扩展让 AI Agent 操控带登录态的浏览器。",
+      "why": "需要让 Agent 操作已登录的网页、复用现有会话时。"
     },
     "alchaincyf/huashu-report": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:45Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "agent-tooling",
       "description": "机构级研究报告 Agent Skill · 规范从 2026 年顶级机构报告实物反向提炼，42 份采集／41 份进量化基线（Stanford/McKinsey/BCG/OpenAI/PwC/World Bank 等）· 六种报告原型 + 8 种图表模式 + 可复用生产流水线 · 跨 agent 通用",
@@ -152,14 +152,14 @@
       "stars": 423,
       "topics": [],
       "url": "https://github.com/alchaincyf/huashu-report",
-      "what": "机构级研究报告 Agent Skill · 规范从 2026 年顶级机构报告实物反向提炼，42 份采集／41 份进量化基线（Stanford/McKinsey/BCG/OpenAI/PwC/World Bank 等）· 六种报告原型 + 8 种图表模式 + 可复用生产流水线 · 跨 agent 通用",
-      "why": ""
+      "what": "面向机构级研究报告生成的 Agent Skill，含报告原型与图表流水线。",
+      "why": "需要让 Agent 按规范产出结构化研究报告与图表时。"
     },
     "alibaba/open-code-review": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
-      "category": "automotive",
+      "category": "ai-agent",
       "description": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
       "fork": false,
       "full_name": "alibaba/open-code-review",
@@ -169,7 +169,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-24T13:47:52Z",
-      "stars": 41196,
+      "stars": 41201,
       "topics": [
         "agent",
         "agent-skills",
@@ -179,8 +179,8 @@
         "repository-level-context"
       ],
       "url": "https://github.com/alibaba/open-code-review",
-      "what": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
-      "why": ""
+      "what": "结合确定性流水线与 LLM Agent 的代码审查工具，支持行级评论与多语言规则集。",
+      "why": "需要在 CI 或本地对仓库做自动化代码审查并定位具体代码行时。"
     },
     "andymik90/aperant": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -387,7 +387,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-13T13:33:07Z",
-      "stars": 235846,
+      "stars": 235849,
       "topics": [
         "ai-agents",
         "cordis",
@@ -721,10 +721,10 @@
       "why": "想对照代码理解经典算法时。"
     },
     "learnprompt/awesome-seedance": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
-      "category": "agent-tooling",
+      "category": "content-creation",
       "description": "🎬 Evidence-led Seedance 2.5 / 2.0 prompt library: 463 cases traced to original posts, 264 cross-model retest runs with public verdicts, 25 copy-ready templates, 60 installable AI-video Skills. EN / 中文 / 日本語.",
       "fork": false,
       "full_name": "LearnPrompt/awesome-seedance",
@@ -757,8 +757,8 @@
         "video-generation"
       ],
       "url": "https://github.com/LearnPrompt/awesome-seedance",
-      "what": "🎬 Evidence-led Seedance 2.5 / 2.0 prompt library: 463 cases traced to original posts, 264 cross-model retest runs with public verdicts, 25 copy-ready templates, 60 installable AI-video Skills. EN / 中文 / 日本語.",
-      "why": ""
+      "what": "Seedance 视频生成提示词库，含案例、模板与可安装的 AI 视频 Skills。",
+      "why": "需要用 Seedance 生成视频并参考现成提示词模板时。"
     },
     "matlab/agent-skills-playground": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -925,8 +925,8 @@
       "why": "想给 DeepSeek Harness 增加自定义侧边栏能力时。"
     },
     "openhands/openhands": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:45Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "ai-agent",
       "description": "🙌 OpenHands: AI-Driven Development",
@@ -938,7 +938,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-16T01:50:00Z",
-      "stars": 89150,
+      "stars": 89151,
       "topics": [
         "agent",
         "artificial-intelligence",
@@ -951,8 +951,8 @@
         "openai"
       ],
       "url": "https://github.com/OpenHands/OpenHands",
-      "what": "🙌 OpenHands: AI-Driven Development",
-      "why": ""
+      "what": "可自主完成编码、调试与多步开发任务的 AI 智能体平台。",
+      "why": "需要让 AI 独立接手开发任务、减少人工逐步操作时。"
     },
     "ossu/computer-science": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -968,7 +968,7 @@
       "pushed_at": "2026-07-14",
       "starred_active": true,
       "starred_at": "2019-10-15T09:25:57Z",
-      "stars": 209452,
+      "stars": 209451,
       "topics": [
         "awesome-list",
         "computer-science",
@@ -1118,10 +1118,10 @@
       "why": "想研究自主 Agent 的早期实现思路时。"
     },
     "sindresorhus/awesome": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
-      "category": "other",
+      "category": "learning",
       "description": "😎 Awesome lists about all kinds of interesting topics [NOTE: Pull requests are temporarily disabled until I have a chance to catch up with the existing ones]",
       "fork": false,
       "full_name": "sindresorhus/awesome",
@@ -1131,7 +1131,7 @@
       "pushed_at": "2026-09-02",
       "starred_active": true,
       "starred_at": "2026-09-24T13:46:06Z",
-      "stars": 510300,
+      "stars": 510305,
       "topics": [
         "awesome",
         "awesome-list",
@@ -1140,8 +1140,8 @@
         "unicorns"
       ],
       "url": "https://github.com/sindresorhus/awesome",
-      "what": "😎 Awesome lists about all kinds of interesting topics [NOTE: Pull requests are temporarily disabled until I have a chance to catch up with the existing ones]",
-      "why": ""
+      "what": "汇集各类主题优质资源清单的 Awesome 列表总目录仓库。",
+      "why": "想按主题查找学习资料、工具或开源项目索引时。"
     },
     "suzike-dev/agent2canape": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -1377,8 +1377,8 @@
       "why": "想让 AI 安全访问 Polarion 需求管理数据时。"
     },
     "suzike-dev/terminal-in-matlab": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "matlab-mbd",
       "description": "",
@@ -1393,8 +1393,8 @@
       "stars": 1,
       "topics": [],
       "url": "https://github.com/suzike-dev/terminal-in-matlab",
-      "what": "（暂无描述）",
-      "why": ""
+      "what": "在 MATLAB 环境中提供终端功能的工具仓库。",
+      "why": "需要在 MATLAB 界面内直接执行命令行操作时。"
     },
     "suzike-dev/vehicle-thermal-llm-multiagent": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -1643,8 +1643,8 @@
       "why": "信息有限，待补充。"
     },
     "tencent/browserskill": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "agent-tooling",
       "description": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
@@ -1663,8 +1663,8 @@
         "dsh-plugin"
       ],
       "url": "https://github.com/Tencent/BrowserSkill",
-      "what": "Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.",
-      "why": ""
+      "what": "让 AI Agent 使用真实已登录浏览器的 CLI 与扩展工具。",
+      "why": "希望 Agent 在后台自动化浏览器而不打断当前工作时。"
     },
     "tencent/teamai-cli": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -1700,7 +1700,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-15T02:52:19Z",
-      "stars": 29983,
+      "stars": 29984,
       "topics": [
         "agent",
         "agentic",
@@ -1781,7 +1781,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-11T15:07:57Z",
-      "stars": 71567,
+      "stars": 71570,
       "topics": [
         "agent-skills",
         "architecture-as-code",
@@ -1809,10 +1809,10 @@
       "why": "需要带动效、可导出、可验证的技术图表时。"
     },
     "vastsa/pi-desktop": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
-      "category": "agent-tooling",
+      "category": "ai-agent",
       "description": "Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins",
       "fork": false,
       "full_name": "vastsa/PI-Desktop",
@@ -1822,7 +1822,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-21T04:32:01Z",
-      "stars": 5696,
+      "stars": 5699,
       "topics": [
         "ai-agent",
         "coding-agent",
@@ -1841,8 +1841,8 @@
         "typescript"
       ],
       "url": "https://github.com/vastsa/PI-Desktop",
-      "what": "Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins",
-      "why": ""
+      "what": "本地优先的 AI 编码智能体桌面应用，含 Rust 核心与可安装插件。",
+      "why": "希望在本机运行可扩展、数据不外传的编码 Agent 桌面端时。"
     },
     "xdash/fde-the-guidance-book-of-forward-deployed-engineer": {
       "analyzed_at": "2026-09-15T04:00:00Z",
@@ -1909,8 +1909,8 @@
       "why": "想通过小练习巩固 Python 基础时。"
     },
     "zai-org/zcode": {
-      "analyzed_at": "2026-09-25T16:21:22Z",
-      "analyzed_by": "rule",
+      "analyzed_at": "2026-09-25T16:29:43Z",
+      "analyzed_by": "llm",
       "archived": false,
       "category": "ai-agent",
       "description": "Z.ai's coding agent harness. Powerful, intelligent, extensible.",
@@ -1925,8 +1925,8 @@
       "stars": 6759,
       "topics": [],
       "url": "https://github.com/zai-org/ZCode",
-      "what": "Z.ai's coding agent harness. Powerful, intelligent, extensible.",
-      "why": ""
+      "what": "Z.ai 推出的编码智能体运行框架，支持扩展。",
+      "why": "需要接入或试用 Z.ai 的编码 Agent 能力时。"
     },
     "zenghui-li/yuxi": {
       "analyzed_at": "2026-09-15T04:00:00Z",

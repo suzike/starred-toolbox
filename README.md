@@ -13,12 +13,12 @@
 ## 目录
 
 <table width="100%">
-<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">12</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">10</td></tr>
+<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">14</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">8</td></tr>
 <tr><td width="320"><a href="#知识库rag-与记忆">知识库、RAG 与记忆</a></td><td width="60" align="right">4</td><td width="320"><a href="#matlab-simulink-与基于模型的设计">MATLAB / Simulink 与基于模型的设计</a></td><td width="60" align="right">8</td></tr>
-<tr><td width="320"><a href="#汽车电子车载测试与控制">汽车电子、车载测试与控制</a></td><td width="60" align="right">8</td><td width="320"><a href="#内容创作与多媒体生成">内容创作与多媒体生成</a></td><td width="60" align="right">6</td></tr>
-<tr><td width="320"><a href="#信息聚合与效率工具">信息聚合与效率工具</a></td><td width="60" align="right">4</td><td width="320"><a href="#编程学习与计算机基础">编程学习与计算机基础</a></td><td width="60" align="right">16</td></tr>
+<tr><td width="320"><a href="#汽车电子车载测试与控制">汽车电子、车载测试与控制</a></td><td width="60" align="right">7</td><td width="320"><a href="#内容创作与多媒体生成">内容创作与多媒体生成</a></td><td width="60" align="right">7</td></tr>
+<tr><td width="320"><a href="#信息聚合与效率工具">信息聚合与效率工具</a></td><td width="60" align="right">4</td><td width="320"><a href="#编程学习与计算机基础">编程学习与计算机基础</a></td><td width="60" align="right">17</td></tr>
 <tr><td width="320"><a href="#机器学习与深度学习框架">机器学习与深度学习框架</a></td><td width="60" align="right">3</td><td width="320"><a href="#工程方法论与研发流程">工程方法论与研发流程</a></td><td width="60" align="right">2</td></tr>
-<tr><td width="320"><a href="#其他">其他</a></td><td width="60" align="right">3</td><td width="320"></td><td width="60"></td></tr>
+<tr><td width="320"><a href="#其他">其他</a></td><td width="60" align="right">2</td><td width="320"></td><td width="60"></td></tr>
 </table>
 
 <sub>另有 [我的自研项目](#我的自研项目) 快捷索引，共 20 个。</sub>
@@ -27,15 +27,15 @@
 
 | 仓库 | 分类 | 语言 | 星标于 |
 | :--- | :--- | :--- | ---: |
-| [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | 汽车电子、车载测试与控制 | Go | 2026-09-24 |
-| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 其他 | — | 2026-09-24 |
-| [LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance) | Agent 扩展、Skills 与工具协议 | JavaScript | 2026-09-22 |
-| [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | Agent 扩展、Skills 与工具协议 | TypeScript | 2026-09-21 |
+| [alibaba/open-code-review](https://github.com/alibaba/open-code-review) | AI Agent 与编码智能体 | Go | 2026-09-24 |
+| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 编程学习与计算机基础 | — | 2026-09-24 |
+| [LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance) | 内容创作与多媒体生成 | JavaScript | 2026-09-22 |
+| [vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop) | AI Agent 与编码智能体 | TypeScript | 2026-09-21 |
 | [zai-org/ZCode](https://github.com/zai-org/ZCode) | AI Agent 与编码智能体 | TypeScript | 2026-09-21 |
 
 ## AI Agent 与编码智能体
 
-<sub>12 个 · [返回目录](#目录)</sub>
+<sub>14 个 · [返回目录](#目录)</sub>
 
 - **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** <sub>TypeScript · ★ 235.8k</sub>
   插件化的 DeepSeek 智能体运行时，一切能力皆以插件形式接入。
@@ -44,10 +44,14 @@
   可自主拆解并执行任务的开源 AI 智能体框架。
   <sub>想研究自主 Agent 的早期实现思路时。</sub>
 - **[OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)** <sub>TypeScript · ★ 89.2k</sub>
-  🙌 OpenHands: AI-Driven Development
+  可自主完成编码、调试与多步开发任务的 AI 智能体平台。
+  <sub>需要让 AI 独立接手开发任务、减少人工逐步操作时。</sub>
 - **[666ghj/MiroFish](https://github.com/666ghj/MiroFish)** <sub>Python · ★ 74.6k</sub>
   通用群体智能引擎，用于多主体行为建模与预测。
   <sub>需要做群体行为仿真或预测类建模时。</sub>
+- **[alibaba/open-code-review](https://github.com/alibaba/open-code-review)** <sub>Go · ★ 41.2k</sub>
+  结合确定性流水线与 LLM Agent 的代码审查工具，支持行级评论与多语言规则集。
+  <sub>需要在 CI 或本地对仓库做自动化代码审查并定位具体代码行时。</sub>
 - **[Hmbown/Codewhale](https://github.com/Hmbown/Codewhale)** <sub>Rust · ★ 41k</sub>
   用 Rust 构建的开源终端编码智能体。
   <sub>想要一个开源、可自行改造的终端编码 Agent 时。</sub>
@@ -58,10 +62,14 @@
   支持跨多个会话自主推进任务的 AI 编码智能体。
   <sub>需要 Agent 在长周期任务上持续工作、而不是单轮对话时。</sub>
 - **[zai-org/ZCode](https://github.com/zai-org/ZCode)** <sub>TypeScript · ★ 6.8k</sub>
-  Z.ai's coding agent harness. Powerful, intelligent, extensible.
+  Z.ai 推出的编码智能体运行框架，支持扩展。
+  <sub>需要接入或试用 Z.ai 的编码 Agent 能力时。</sub>
 - **[KunAgent/Kun](https://github.com/KunAgent/Kun)** <sub>TypeScript · ★ 6.3k</sub>
   本地优先的 AI 智能体工作台，覆盖编码、写作、设计与研究，统一 GUI 与 TUI 运行时。
   <sub>想要一个统一入口承载多种 Agent 任务、且数据留在本机时。</sub>
+- **[vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop)** <sub>TypeScript · ★ 5.7k</sub>
+  本地优先的 AI 编码智能体桌面应用，含 Rust 核心与可安装插件。
+  <sub>希望在本机运行可扩展、数据不外传的编码 Agent 桌面端时。</sub>
 - **[sandroandric/AgentHandover](https://github.com/sandroandric/AgentHandover)** <sub>Python · ★ 700</sub>
   观察用户操作习惯，转成可自改进的技能并交接给编码智能体。
   <sub>想让 Agent 学会你的固定工作方式、不必每次重复交代时。</sub>
@@ -74,27 +82,26 @@
 
 ## Agent 扩展、Skills 与工具协议
 
-<sub>10 个 · [返回目录](#目录)</sub>
+<sub>8 个 · [返回目录](#目录)</sub>
 
 - **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** <sub>JavaScript · ★ 99k</sub>
   面向 AI 编码智能体的生产级工程技能集合。
   <sub>想给 Agent 补上成熟工程实践、减少低级失误时。</sub>
 - **[Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill)** <sub>TypeScript · ★ 7.2k</sub>
-  Let AI agents use your real, logged-in browser without interrupting your work. CLI + extension for browser automation across any shell-capable AI agent.
-- **[vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop)** <sub>TypeScript · ★ 5.7k</sub>
-  Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins
+  让 AI Agent 使用真实已登录浏览器的 CLI 与扩展工具。
+  <sub>希望 Agent 在后台自动化浏览器而不打断当前工作时。</sub>
 - **[Tencent/teamai-cli](https://github.com/Tencent/teamai-cli)** <sub>TypeScript · ★ 5k</sub>
   面向团队场景的 AI 命令行工具。
   <sub>官方描述较简短，具体用法待补充。</sub>
 - **[omdsh-dev/DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar)** <sub>TypeScript · ★ 3.7k</sub>
   可扩展的侧边栏底座，内置文件编辑、终端、Git 与子代理页面。
   <sub>想给 DeepSeek Harness 增加自定义侧边栏能力时。</sub>
-- **[LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance)** <sub>JavaScript · ★ 1.4k</sub>
-  🎬 Evidence-led Seedance 2.5 / 2.0 prompt library: 463 cases traced to original posts, 264 cross-model retest runs with public verdicts, 25 copy-ready templates, 60 installable AI-video Skills. EN / 中文 / 日本語.
 - **[alchaincyf/huashu-report](https://github.com/alchaincyf/huashu-report)** <sub>Python · ★ 423</sub>
-  机构级研究报告 Agent Skill · 规范从 2026 年顶级机构报告实物反向提炼，42 份采集／41 份进量化基线（Stanford/McKinsey/BCG/OpenAI/PwC/World Bank 等）· 六种报告原型 + 8 种图表模式 + 可复用生产流水线 · 跨 agent 通用
+  面向机构级研究报告生成的 Agent Skill，含报告原型与图表流水线。
+  <sub>需要让 Agent 按规范产出结构化研究报告与图表时。</sub>
 - **[alchaincyf/huashu-chrome](https://github.com/alchaincyf/huashu-chrome)** <sub>JavaScript · ★ 239</sub>
-  让任何 AI agent 操控你自己的 Chrome——带着全部登录态。MCP + Chrome 扩展，Claude Code / Codex / Cursor / Gemini CLI 通用。
+  通过 MCP 与 Chrome 扩展让 AI Agent 操控带登录态的浏览器。
+  <sub>需要让 Agent 操作已登录的网页、复用现有会话时。</sub>
 - **[suzike/freestyle-dsh-theme](https://github.com/suzike/freestyle-dsh-theme)** `自研` <sub>TypeScript · ★ 11</sub>
   DeepSeek Harness 的主题提案与可视化主题设计器插件。
   <sub>想自定义 DeepSeek Harness 外观时。</sub>
@@ -145,14 +152,13 @@
   从 Simulink/Stateflow 模型与生成代码反推中文软件需求规格的 Agent Skill。
   <sub>需要为已完成的模型补齐可评审 SRS 文档时。</sub>
 - **[suzike-dev/terminal-in-matlab](https://github.com/suzike-dev/terminal-in-matlab)** `私有` `自研` <sub>MATLAB · ★ 1</sub>
-  （暂无描述）
+  在 MATLAB 环境中提供终端功能的工具仓库。
+  <sub>需要在 MATLAB 界面内直接执行命令行操作时。</sub>
 
 ## 汽车电子、车载测试与控制
 
-<sub>8 个 · [返回目录](#目录)</sub>
+<sub>7 个 · [返回目录](#目录)</sub>
 
-- **[alibaba/open-code-review](https://github.com/alibaba/open-code-review)** <sub>Go · ★ 41.2k</sub>
-  Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.
 - **[pms67/PID](https://github.com/pms67/PID)** <sub>C · ★ 937</sub>
   C 语言实现的 PID 控制器。
   <sub>需要在嵌入式项目中集成 PID 控制时。</sub>
@@ -177,7 +183,7 @@
 
 ## 内容创作与多媒体生成
 
-<sub>6 个 · [返回目录](#目录)</sub>
+<sub>7 个 · [返回目录](#目录)</sub>
 
 - **[AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)** <sub>Python · ★ 165.1k</sub>
   本地部署的 Stable Diffusion 图像生成 Web 界面。
@@ -194,6 +200,9 @@
 - **[Cocoon-AI/architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator)** <sub>HTML · ★ 7.4k</sub>
   把系统架构描述生成独立 HTML/SVG 架构图的 Claude Skill。
   <sub>需要快速产出可分享的架构图、又不想手绘时。</sub>
+- **[LearnPrompt/awesome-seedance](https://github.com/LearnPrompt/awesome-seedance)** <sub>JavaScript · ★ 1.4k</sub>
+  Seedance 视频生成提示词库，含案例、模板与可安装的 AI 视频 Skills。
+  <sub>需要用 Seedance 生成视频并参考现成提示词模板时。</sub>
 - **[suzike/nanju-write-paper](https://github.com/suzike/nanju-write-paper)** `自研` <sub>HTML · ★ 5</sub>
   从选题到成稿的写作流水线 Skill，含多 Agent 调研、五角色审查与多尺寸卡片版式输出。
   <sub>需要把技术选题批量产出为长文与公众号/PDF 版式时。</sub>
@@ -217,8 +226,11 @@
 
 ## 编程学习与计算机基础
 
-<sub>16 个 · [返回目录](#目录)</sub>
+<sub>17 个 · [返回目录](#目录)</sub>
 
+- **[sindresorhus/awesome](https://github.com/sindresorhus/awesome)** <sub>★ 510.3k</sub>
+  汇集各类主题优质资源清单的 Awesome 列表总目录仓库。
+  <sub>想按主题查找学习资料、工具或开源项目索引时。</sub>
 - **[ossu/computer-science](https://github.com/ossu/computer-science)** <sub>HTML · ★ 209.5k</sub>
   免费的计算机科学自学课程路线。
   <sub>想按完整课程体系自学 CS 时。</sub>
@@ -262,7 +274,8 @@
   常见算法的 Python 实现集合。
   <sub>复习算法实现细节时。</sub>
 - **[alchaincyf/3d-vibe-coding-handbook](https://github.com/alchaincyf/3d-vibe-coding-handbook)** <sub>HTML · ★ 266</sub>
-  《3D Vibe Coding 手册》配套仓库：书的 HTML 版、demo 源码、工具脚本与资源包索引
+  《3D Vibe Coding 手册》配套仓库，含 HTML 书稿、示例源码与资源索引。
+  <sub>想按教程学习 3D 与 AI 生成建模、并动手跑示例时。</sub>
 - **[suzike/EmbedSummary](https://github.com/suzike/EmbedSummary)** `自研` <sub>★ 1</sub>
   嵌入式开发资源汇总。
   <sub>需要嵌入式方向的资料索引时。</sub>
@@ -294,10 +307,8 @@
 
 ## 其他
 
-<sub>3 个 · [返回目录](#目录)</sub>
+<sub>2 个 · [返回目录](#目录)</sub>
 
-- **[sindresorhus/awesome](https://github.com/sindresorhus/awesome)** <sub>★ 510.3k</sub>
-  😎 Awesome lists about all kinds of interesting topics [NOTE: Pull requests are temporarily disabled until I have a chance to catch up with the existing ones]
 - **[suzike-dev/kill-issue](https://github.com/suzike-dev/kill-issue)** `私有` `自研` <sub>Python · ★ 1</sub>
   仓库暂无描述，用途待补充。
   <sub>信息有限，待补充。</sub>
@@ -331,7 +342,7 @@
 
 [![定时同步状态](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml/badge.svg?branch=main)](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml)
 
-<sub>最后同步 2026-09-25 16:21 UTC</sub>
+<sub>最后同步 2026-09-25 16:29 UTC</sub>
 
 - 唯一来源是本账号的 Star 列表，由 GitHub Actions 每天定时拉取，不做任何主动发现。
 - 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；没有配置模型密钥时降级为规则归类。
