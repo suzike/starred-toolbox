@@ -1,6 +1,6 @@
 {
   "excluded_private": 0,
-  "last_sync": "2026-09-25 16:29 UTC",
+  "last_sync": "2026-09-25 16:45 UTC",
   "login": "suzike",
   "repos": {
     "521xueweihan/hellogithub": {
@@ -42,7 +42,7 @@
       "pushed_at": "2026-09-16",
       "starred_active": true,
       "starred_at": "2026-08-08T01:58:25Z",
-      "stars": 74646,
+      "stars": 74648,
       "topics": [
         "agent-memory",
         "financial-forecasting",
@@ -73,7 +73,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2026-08-08T00:18:43Z",
-      "stars": 99010,
+      "stars": 99014,
       "topics": [
         "agent-skills",
         "antigravity",
@@ -169,7 +169,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-24T13:47:52Z",
-      "stars": 41201,
+      "stars": 41206,
       "topics": [
         "agent",
         "agent-skills",
@@ -387,7 +387,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-13T13:33:07Z",
-      "stars": 235849,
+      "stars": 235862,
       "topics": [
         "ai-agents",
         "cordis",
@@ -474,7 +474,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2025-07-01T08:30:35Z",
-      "stars": 6886,
+      "stars": 6887,
       "topics": [],
       "url": "https://github.com/guaguastandup/zotero-pdf2zh",
       "what": "Zotero 的 PDF 中文翻译插件。",
@@ -639,7 +639,7 @@
       "pushed_at": "2026-07-29",
       "starred_active": true,
       "starred_at": "2023-04-09T03:18:42Z",
-      "stars": 119099,
+      "stars": 119100,
       "topics": [
         "android",
         "angular",
@@ -938,7 +938,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-16T01:50:00Z",
-      "stars": 89151,
+      "stars": 89154,
       "topics": [
         "agent",
         "artificial-intelligence",
@@ -968,7 +968,7 @@
       "pushed_at": "2026-07-14",
       "starred_active": true,
       "starred_at": "2019-10-15T09:25:57Z",
-      "stars": 209451,
+      "stars": 209452,
       "topics": [
         "awesome-list",
         "computer-science",
@@ -1131,7 +1131,7 @@
       "pushed_at": "2026-09-02",
       "starred_active": true,
       "starred_at": "2026-09-24T13:46:06Z",
-      "stars": 510305,
+      "stars": 510311,
       "topics": [
         "awesome",
         "awesome-list",
@@ -1656,7 +1656,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-17T01:59:35Z",
-      "stars": 7202,
+      "stars": 7203,
       "topics": [
         "agent",
         "browser-use",
@@ -1700,7 +1700,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-15T02:52:19Z",
-      "stars": 29984,
+      "stars": 29987,
       "topics": [
         "agent",
         "agentic",
@@ -1761,7 +1761,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-08-31T23:54:27Z",
-      "stars": 39009,
+      "stars": 39011,
       "topics": [],
       "url": "https://github.com/THU-MAIC/OpenMAIC",
       "what": "多智能体驱动的交互式课堂，一键生成沉浸式学习体验。",
@@ -1781,7 +1781,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-11T15:07:57Z",
-      "stars": 71570,
+      "stars": 71574,
       "topics": [
         "agent-skills",
         "architecture-as-code",
@@ -1822,7 +1822,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-09-21T04:32:01Z",
-      "stars": 5699,
+      "stars": 5701,
       "topics": [
         "ai-agent",
         "coding-agent",
@@ -1898,7 +1898,7 @@
       "pushed_at": "2019-11-11",
       "starred_active": true,
       "starred_at": "2019-12-24T04:02:25Z",
-      "stars": 13728,
+      "stars": 13729,
       "topics": [
         "python",
         "python-web",
