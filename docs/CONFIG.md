@@ -22,13 +22,14 @@ Actions 自动注入的 `GITHUB_TOKEN` 作用域**被限制在当前仓库**，�
 
 | 方案 | 所需权限 | 说明 |
 |---|---|---|
-| **classic PAT** | `repo` | 本地实测可用（本机 `gh` 的 token 含 `repo` + `workflow`，成功读到全部 65 个 Star，含 10 个私有仓）。但 `repo` 是较宽的权限，会给到私有仓库的读写能力 |
+| **classic PAT** | `repo` | 实测可用（本机 `gh` 的 token 含 `repo` + `workflow`，读到全部 76 个 Star，含 11 个私有仓）。但 `repo` 较宽，会给出私有仓库的**读写**能力 |
 | **fine-grained PAT**（推荐） | Account permissions: **Starring → Read**；Repository permissions: **Metadata → Read**，仓库范围选 **All repositories** | 权限最小化。GitHub REST 文档明确列出 `GET /user/starred` 需要 `Starring` 的 read 权限；`Metadata` 是读取仓库基础信息所必需 |
 
-两点诚实标注：
-
-- **本机没有独立的 fine-grained token 可测，所以「fine-grained 一定能读到私有仓库」我无法在此确认。** 配置完后请跑一次下面的自检命令验证，不要直接假定成功。
-- 关于只有 `read:user`（不含 `repo`）的 classic token 能否看到私有仓库，我未能找到可引用的官方明确表述，也无法在本机验证。**不要在需要私有条目时这样配**。
+**fine-grained 的实测结论（重要）**：它的 Resource owner **只能选一个账号**。
+选了个人 `suzike` 的令牌，`GET /repos/suzike-dev/xxx` 对组织 `suzike-dev` 名下
+的私有仓一律返回 **404**，结果就是 76 个 Star 只读到 65 个——少的恰好是那 11 个
+组织私有仓。这不是权限勾错了，是令牌作用域的硬限制，靠改权限解决不了。
+解法见下一节 `STAR_TOKEN_ORG`。
 
 ### 自检（配置后务必先跑这一步）
 
@@ -52,6 +53,33 @@ python scripts/sync_stars.py --verify-token
 | Name | Value |
 |---|---|
 | `STAR_TOKEN` | 上一步生成的 token |
+
+---
+
+## 一之二、`STAR_TOKEN_ORG` —— 组织名下的私有仓库（可选）
+
+**什么时候需要**：你有 Star 的私有仓库属于某个**组织**（例如 `suzike-dev`），
+而主令牌的 Resource owner 是个人账号。
+
+**为什么必须再来一个**：fine-grained PAT 的 Resource owner 只能选一个账号，
+选了个人就看不见组织的私有仓（见上一节实测）。要两边都覆盖，只能再建一个
+Resource owner 为该组织的令牌，脚本会把两份结果按仓库名合并。
+
+### 创建步骤
+
+1. https://github.com/settings/tokens → **Generate new token (fine-grained)**
+2. **Resource owner** 选你的**组织**（不是个人账号）
+3. Repository access 选 **All repositories**
+4. Permissions → Account: **Starring → Read**；Repository: **Metadata → Read**
+5. 写入 Secret：
+
+| Name | Value |
+|---|---|
+| `STAR_TOKEN_ORG` | 该组织令牌 |
+
+> 不配也能跑：此时只同步主令牌看得见的仓库。组织私有仓若**已经在**归档里，
+> 脚本会保留它们并在日志里告警，**不会**因为读不到就当成取消星标删掉。
+> 影响的只是「以后新 Star 的组织私有仓不会自动进来」。
 
 ---
 
@@ -114,11 +142,11 @@ Secret 配好之后：
 
 ### 为什么首次不要勾 `force_reanalyze`
 
-`force_reanalyze` 会**无视缓存，对全部条目重新调用一次大模型**（当前 65 条）。
+`force_reanalyze` 会**无视缓存，对全部条目重新调用一次大模型**（当前 76 条）。
 现有 `data/stars.json` 里已经写好了每条的中文解读，标记为 `analyzed_by: bootstrap`。
 脚本判定「需要重新解读」的条件是 `what` 为空，或 `analyzed_by == "rule"`
 （即上一次是关键词兜底）。`bootstrap` 不满足这两个条件，因此正常同步不会重做它们——
-勾上反而会白花 65 次调用。
+勾上反而会白花 76 次调用。
 
 只有在这两种情况下才需要勾：
 
@@ -133,9 +161,16 @@ Secret 配好之后：
 |---|---|
 | `STAR_TOKEN` | 工作流第一步输出 **warning** 并**跳过整个任务**，不会失败。这是为了避免在还没配好凭据时每天收到失败通知 |
 | `LLM_API_KEY` | 任务照常运行，但输出一条 **notice**，归类退化为关键词规则、解读退化为 GitHub 官方描述。**此时仍然会正常提交 README**，容易误以为「AI 归类已经生效」 |
+| `STAR_TOKEN_ORG` | 任务照常运行，只在日志里输出「N 个私有仓库读不到，已保留」。后果是**以后新 Star 的组织私有仓不会自动进来** |
 
-判断方法：看 Actions 运行日志顶部的注解，或检查 `data/stars.json` 里
-`analyzed_by` 是否为 `rule`。
+### 判断自动化是否真的在跑
+
+**不要看 run 的 conclusion。** 凭据缺失时工作流第一步会输出 warning 并跳过
+后续全部步骤，但 **job 仍以 success 结束**——实测连续 10 次运行全部显示
+success，`last_sync` 却 10 天没变过。这个「跳过不算失败」的设计避免了每天
+发失败邮件，代价是故障从运行状态里看不出来。
+
+唯一可靠的指标是 `data/stars.json` 的 **`last_sync` 是否随运行时间更新**。
 
 ---
 
@@ -146,6 +181,7 @@ Secret 配好之后：
 ```bash
 # Windows PowerShell
 $env:STAR_TOKEN = "你的 token"
+$env:STAR_TOKEN_ORG = "组织令牌（可选）"
 $env:LLM_API_KEY = "你的 key"
 python scripts/sync_stars.py
 ```
