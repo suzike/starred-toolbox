@@ -52,6 +52,14 @@ README_FILE = ROOT / "README.md"
 LANG_NONE_LABEL = "未标注"
 
 GH_TOKEN = os.environ.get("STAR_TOKEN") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
+# 第二个可选令牌，专门覆盖「组织拥有的私有仓库」。
+#
+# 为什么需要两个：fine-grained PAT 的 Resource owner 只能选一个账号。选了个人
+# suzike 的令牌，对 suzike-dev 组织下的私有仓一律返回 404（实测：76 个 Star
+# 里只读到 65 个，恰好少的 11 个全是 suzike-dev 的私有仓）。要让同一份令牌同时
+# 覆盖两边，只能再建一个 Resource owner 为组织的令牌，然后把两份结果合并。
+# 未设置时保持旧行为，不影响只配了一个令牌的部署。
+GH_TOKEN_ORG = (os.environ.get("STAR_TOKEN_ORG") or "").strip()
 LLM_KEY = os.environ.get("LLM_API_KEY", "").strip()
 # 用 or 而非 get 默认值：Actions 中未定义的 vars 会传入空字符串，
 # 空字符串会让 get(key, default) 拿不到默认值。
@@ -172,15 +180,17 @@ def http_json(url: str, headers: dict, payload: dict | None = None, timeout: int
         return json.loads(resp.read().decode("utf-8"))
 
 
-def gh_graphql(query: str, variables: dict | None = None, retries: int = 3) -> dict:
-    if not GH_TOKEN:
+def gh_graphql(query: str, variables: dict | None = None, retries: int = 3,
+               token: str = "") -> dict:
+    tok = token or GH_TOKEN
+    if not tok:
         raise SystemExit("缺少 STAR_TOKEN / GITHUB_TOKEN 环境变量，无法读取 Star 列表。")
     for attempt in range(retries):
         try:
             out = http_json(
                 "https://api.github.com/graphql",
                 {
-                    "Authorization": f"bearer {GH_TOKEN}",
+                    "Authorization": f"bearer {tok}",
                     "Content-Type": "application/json",
                     "User-Agent": "starred-toolbox-sync",
                     "Accept": "application/json",
@@ -200,13 +210,34 @@ def gh_graphql(query: str, variables: dict | None = None, retries: int = 3) -> d
 
 
 def fetch_all_stars() -> tuple[str, dict[str, dict]]:
-    """返回 (login, {full_name_lower: repo_dict})。"""
+    """返回 (login, {full_name_lower: repo_dict})。
+
+    配置了 STAR_TOKEN_ORG 时会用两份令牌各拉一次再合并：
+    fine-grained PAT 的 Resource owner 只能选一个账号，单份令牌必然漏掉
+    另一边的私有仓库。合并以小写 full_name 为键（与数据层一致），
+    公开的仓库两边都会返回，内容相同，覆盖即可。
+    """
+    login, repos = _fetch_stars_with(GH_TOKEN, "主令牌")
+    if GH_TOKEN_ORG:
+        login2, repos2 = _fetch_stars_with(GH_TOKEN_ORG, "组织令牌")
+        before = len(repos)
+        for k, v in repos2.items():
+            if k not in repos:
+                repos[k] = v
+        login = login or login2
+        log(f"  合并组织令牌结果：{before} → {len(repos)} 条"
+            f"（新增 {len(repos) - before} 条）")
+    return login, repos
+
+
+def _fetch_stars_with(token: str, label: str) -> tuple[str, dict[str, dict]]:
+    """用指定令牌分页拉取 Star 列表。"""
     login = ""
     repos: dict[str, dict] = {}
     cursor = None
     page = 0
     while True:
-        data = gh_graphql(STAR_QUERY, {"cursor": cursor})
+        data = gh_graphql(STAR_QUERY, {"cursor": cursor}, token=token)
         viewer = data["viewer"]
         login = viewer["login"]
         block = viewer["starredRepositories"]
@@ -228,7 +259,7 @@ def fetch_all_stars() -> tuple[str, dict[str, dict]]:
                 "starred_at": edge["starredAt"],
             }
         page += 1
-        log(f"  已拉取第 {page} 页，累计 {len(repos)} / {block['totalCount']}")
+        log(f"  [{label}] 已拉取第 {page} 页，累计 {len(repos)} / {block['totalCount']}")
         if not block["pageInfo"]["hasNextPage"]:
             break
         cursor = block["pageInfo"]["endCursor"]
@@ -672,6 +703,9 @@ def main() -> int:
 
     if args.verify_token:
         log("检查 STAR_TOKEN 的读取范围")
+        log(f"  主令牌 STAR_TOKEN: {'已设置' if GH_TOKEN else '未设置'}")
+        log(f"  组织令牌 STAR_TOKEN_ORG: {'已设置' if GH_TOKEN_ORG else '未设置'}"
+            + ("" if GH_TOKEN_ORG else "（缺失会漏掉组织下的私有仓库）"))
         login, remote = fetch_all_stars()
         priv = sorted(k for k, v in remote.items() if v.get("private"))
         log(f"  账号: {login}")
@@ -683,7 +717,12 @@ def main() -> int:
             log("  提示：未读到任何私有仓库。若你确实 Star 过私有仓库，说明该 token "
                 "缺少读取私有仓库的权限，同步会漏掉它们。")
             log("        classic token 需 repo scope；fine-grained 需 "
-                "Starring: read + Metadata: read 且覆盖私有仓库。")
+                "Starring: read + Metadata: read 且覆盖私有仓库；")
+            log("        仓库属于组织时，还要另建一个 Resource owner 为该组织的令牌，")
+            log("        并写入 Secret STAR_TOKEN_ORG。")
+        elif not GH_TOKEN_ORG:
+            log("  提示：私有仓库能读到，但未配置 STAR_TOKEN_ORG。"
+                "若其中缺少属于组织的私有仓，请补配该 Secret。")
         return 0
 
     if args.render_only:
@@ -733,7 +772,27 @@ def main() -> int:
     unstarred = [k for k, v in local.items()
                  if v.get("starred_active", True) and k not in remote]
 
-    log(f"  新增 {len(new_keys)} 条，待补充解读 {len(unanalyzed)} 条，已取消星标 {len(unstarred)} 条")
+    # 令牌降级保护：本次读不到的私有仓库，不等于用户取消了星标。
+    #
+    # fine-grained PAT 的 Resource owner 只能选一个账号，换边或组织未放行第三方
+    # 访问时，原本在列表里的私有仓会凭空从 API 结果中消失。若照常判定为
+    # 「取消星标」，一次权限抖动就会把整批条目从 README 抹掉，等令牌修好还要
+    # 重新归类一遍。而「看不到」与「真的取消了」在拿不到数据时无法区分，
+    # 所以保守处理：一律保留，只告警，不删除。
+    unread_private = [k for k in unstarred if local[k].get("private")]
+    if unread_private:
+        log(f"  警告：{len(unread_private)} 个私有仓库本次读不到，已保留、不按取消星标处理")
+        for k in unread_private:
+            log(f"    - {local[k]['full_name']}")
+        log("    多为令牌权限不足而非真的取消星标。若确认已取消，请手动把 "
+            "data/stars.json 中该条的 starred_active 置为 false；")
+        log("    若是权限问题，请补配 Secret STAR_TOKEN_ORG"
+            "（fine-grained PAT 的 Resource owner 选组织）。")
+        unstarred = [k for k in unstarred if k not in unread_private]
+
+    log(f"  新增 {len(new_keys)} 条，待补充解读 {len(unanalyzed)} 条，"
+        f"已取消星标 {len(unstarred)} 条"
+        + (f"（另有 {len(unread_private)} 条私有仓读不到，已保留）" if unread_private else ""))
 
     for k in unstarred:
         local[k]["starred_active"] = False

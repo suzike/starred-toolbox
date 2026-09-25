@@ -29,6 +29,10 @@ jobs:
       #     + Repository permissions 的 Metadata: read，并覆盖私有仓库。
       # 配置完可先跑 scripts/sync_stars.py --verify-token 确认私有仓库可见。
       STAR_TOKEN: ${{ secrets.STAR_TOKEN }}
+      # 第二个可选令牌，Resource owner 选「组织」，用于读取组织名下的私有仓库。
+      # fine-grained PAT 的 Resource owner 只能选一个账号：选了个人就看不到
+      # 组织的私有仓（实测 76 个 Star 只读到 65 个）。留空则只用主令牌。
+      STAR_TOKEN_ORG: ${{ secrets.STAR_TOKEN_ORG }}
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
       LLM_MODEL: ${{ vars.LLM_MODEL }}
