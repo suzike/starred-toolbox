@@ -1,6 +1,6 @@
 {
   "excluded_private": 0,
-  "last_sync": "2026-09-26 09:50 UTC",
+  "last_sync": "2026-09-26 14:27 UTC",
   "login": "suzike",
   "repos": {
     "521xueweihan/hellogithub": {
@@ -17,7 +17,7 @@
       "pushed_at": "2026-09-20",
       "starred_active": true,
       "starred_at": "2019-12-26T14:37:42Z",
-      "stars": 178632,
+      "stars": 178661,
       "topics": [
         "awesome",
         "github",
@@ -42,7 +42,7 @@
       "pushed_at": "2026-09-16",
       "starred_active": true,
       "starred_at": "2026-08-08T01:58:25Z",
-      "stars": 74779,
+      "stars": 74819,
       "topics": [
         "agent-memory",
         "financial-forecasting",
@@ -73,7 +73,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-08-08T00:18:43Z",
-      "stars": 99165,
+      "stars": 99201,
       "topics": [
         "agent-skills",
         "antigravity",
@@ -126,10 +126,10 @@
       "language": "JavaScript",
       "license": "MIT",
       "private": false,
-      "pushed_at": "2026-09-25",
+      "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-18T13:26:29Z",
-      "stars": 250,
+      "stars": 251,
       "topics": [],
       "url": "https://github.com/alchaincyf/huashu-chrome",
       "what": "通过 MCP 与 Chrome 扩展让 AI Agent 操控带登录态的浏览器。",
@@ -169,7 +169,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-24T13:47:52Z",
-      "stars": 41473,
+      "stars": 41522,
       "topics": [
         "agent",
         "agent-skills",
@@ -216,7 +216,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-26T08:36:31Z",
-      "stars": 1336,
+      "stars": 1339,
       "topics": [
         "ai",
         "ai-gateway",
@@ -241,7 +241,7 @@
       "pushed_at": "2026-06-14",
       "starred_active": true,
       "starred_at": "2026-05-04T10:01:03Z",
-      "stars": 28425,
+      "stars": 28434,
       "topics": [
         "aigc",
         "comfyui",
@@ -291,7 +291,7 @@
       "pushed_at": "2026-03-02",
       "starred_active": true,
       "starred_at": "2023-04-12T08:16:39Z",
-      "stars": 165133,
+      "stars": 165135,
       "topics": [
         "ai",
         "ai-art",
@@ -412,7 +412,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-13T13:33:07Z",
-      "stars": 236421,
+      "stars": 236625,
       "topics": [
         "ai-agents",
         "cordis",
@@ -485,6 +485,26 @@
       "what": "覆盖 UDS、CAN-TP、DOIP、LIN 与类 CAPL 脚本的汽车 ECU 开发与 HIL 测试工具。",
       "why": "做 ECU 诊断、总线通信或 HIL 测试、又不想依赖商业工具链时。"
     },
+    "eternity4719/howtolivebetter": {
+      "analyzed_at": "2026-09-26T14:27:40Z",
+      "analyzed_by": "llm",
+      "archived": false,
+      "category": "other",
+      "description": "按性价比排序的循证生活指南：长寿防病、急救、省钱理财、法律红线、失业与工伤、医保社保、恋爱婚育、怀孕育儿、创业与做平台合规、出国与技能。每条写明成本、收益、证据等级和原始出处，只引期刊论文与官方文件。",
+      "fork": false,
+      "full_name": "eternity4719/HowToLiveBetter",
+      "language": "HTML",
+      "license": "Unlicense",
+      "private": false,
+      "pushed_at": "2026-09-25",
+      "starred_active": true,
+      "starred_at": "2026-09-26T12:08:40Z",
+      "stars": 17553,
+      "topics": [],
+      "url": "https://github.com/eternity4719/HowToLiveBetter",
+      "what": "按性价比排序的循证生活指南，涵盖健康、理财、法律、社保与育儿等主题。",
+      "why": "需要查阅有出处依据的生活决策建议时，可参考其成本收益与证据等级。"
+    },
     "guaguastandup/zotero-pdf2zh": {
       "analyzed_at": "2026-09-15T04:00:00Z",
       "analyzed_by": "bootstrap",
@@ -499,7 +519,7 @@
       "pushed_at": "2026-09-23",
       "starred_active": true,
       "starred_at": "2025-07-01T08:30:35Z",
-      "stars": 6903,
+      "stars": 6909,
       "topics": [],
       "url": "https://github.com/guaguastandup/zotero-pdf2zh",
       "what": "Zotero 的 PDF 中文翻译插件。",
@@ -571,7 +591,7 @@
       "pushed_at": "2026-08-22",
       "starred_active": true,
       "starred_at": "2026-09-26T04:52:06Z",
-      "stars": 1478,
+      "stars": 1482,
       "topics": [
         "agent-skills",
         "ai-agents",
@@ -630,7 +650,7 @@
       "pushed_at": "2026-07-29",
       "starred_active": true,
       "starred_at": "2019-09-22T10:00:38Z",
-      "stars": 186902,
+      "stars": 186904,
       "topics": [],
       "url": "https://github.com/jackfrued/Python-100-Days",
       "what": "从入门到进阶的 Python 系统教程，按天组织。",
@@ -698,7 +718,7 @@
       "pushed_at": "2026-07-29",
       "starred_active": true,
       "starred_at": "2023-04-09T03:18:42Z",
-      "stars": 119116,
+      "stars": 119122,
       "topics": [
         "android",
         "angular",
@@ -793,7 +813,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-22T07:45:06Z",
-      "stars": 1416,
+      "stars": 1427,
       "topics": [
         "agent-skill",
         "ai-video",
@@ -866,7 +886,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-08T02:04:33Z",
-      "stars": 1105,
+      "stars": 1107,
       "topics": [
         "agent-skills",
         "claude-code",
@@ -894,7 +914,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-08-08T02:04:42Z",
-      "stars": 1577,
+      "stars": 1578,
       "topics": [
         "engineering-tools",
         "matlab",
@@ -920,7 +940,7 @@
       "pushed_at": "2026-09-16",
       "starred_active": true,
       "starred_at": "2026-04-21T02:18:53Z",
-      "stars": 1154,
+      "stars": 1156,
       "topics": [
         "agent-skills",
         "claude-code",
@@ -950,7 +970,7 @@
       "pushed_at": "2026-08-25",
       "starred_active": true,
       "starred_at": "2026-08-29T13:39:12Z",
-      "stars": 19988,
+      "stars": 19990,
       "topics": [],
       "url": "https://github.com/nashsu/llm_wiki",
       "what": "把文档自动整理成互链知识库的跨平台桌面应用。",
@@ -970,7 +990,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-08-14T09:05:40Z",
-      "stars": 3758,
+      "stars": 3760,
       "topics": [
         "deepseek",
         "deepseek-harness",
@@ -997,7 +1017,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-16T01:50:00Z",
-      "stars": 89187,
+      "stars": 89205,
       "topics": [
         "agent",
         "artificial-intelligence",
@@ -1027,7 +1047,7 @@
       "pushed_at": "2026-07-14",
       "starred_active": true,
       "starred_at": "2019-10-15T09:25:57Z",
-      "stars": 209474,
+      "stars": 209480,
       "topics": [
         "awesome-list",
         "computer-science",
@@ -1052,7 +1072,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2020-02-12T05:09:27Z",
-      "stars": 24104,
+      "stars": 24105,
       "topics": [
         "deep-learning",
         "distributed-training",
@@ -1121,7 +1141,7 @@
       "pushed_at": "2026-09-13",
       "starred_active": true,
       "starred_at": "2025-12-19T00:57:51Z",
-      "stars": 62540,
+      "stars": 62544,
       "topics": [
         "ai",
         "bark",
@@ -1158,7 +1178,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2023-04-09T03:09:04Z",
-      "stars": 187567,
+      "stars": 187570,
       "topics": [
         "agentic-ai",
         "agents",
@@ -1190,7 +1210,7 @@
       "pushed_at": "2026-09-02",
       "starred_active": true,
       "starred_at": "2026-09-24T13:46:06Z",
-      "stars": 510656,
+      "stars": 510769,
       "topics": [
         "awesome",
         "awesome-list",
@@ -1773,7 +1793,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-17T01:59:35Z",
-      "stars": 7296,
+      "stars": 7321,
       "topics": [
         "agent",
         "browser-use",
@@ -1797,7 +1817,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-14T13:21:24Z",
-      "stars": 5010,
+      "stars": 5014,
       "topics": [],
       "url": "https://github.com/Tencent/teamai-cli",
       "what": "面向团队场景的 AI 命令行工具。",
@@ -1817,7 +1837,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-15T02:52:19Z",
-      "stars": 30198,
+      "stars": 30256,
       "topics": [
         "agent",
         "agentic",
@@ -1878,7 +1898,7 @@
       "pushed_at": "2026-09-25",
       "starred_active": true,
       "starred_at": "2026-08-31T23:54:27Z",
-      "stars": 39088,
+      "stars": 39113,
       "topics": [],
       "url": "https://github.com/THU-MAIC/OpenMAIC",
       "what": "多智能体驱动的交互式课堂，一键生成沉浸式学习体验。",
@@ -1895,10 +1915,10 @@
       "language": "JavaScript",
       "license": "MIT",
       "private": false,
-      "pushed_at": "2026-09-25",
+      "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-11T15:07:57Z",
-      "stars": 71981,
+      "stars": 72071,
       "topics": [
         "agent-skills",
         "architecture-as-code",
@@ -1939,7 +1959,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-21T04:32:01Z",
-      "stars": 5784,
+      "stars": 5815,
       "topics": [
         "ai-agent",
         "coding-agent",
@@ -1995,7 +2015,7 @@
       "pushed_at": "2026-09-26",
       "starred_active": true,
       "starred_at": "2026-09-26T05:06:19Z",
-      "stars": 162,
+      "stars": 169,
       "topics": [
         "agent-orchestration",
         "agentic-coding",
@@ -2080,7 +2100,7 @@
       "pushed_at": "2026-09-24",
       "starred_active": true,
       "starred_at": "2026-09-21T03:40:04Z",
-      "stars": 6805,
+      "stars": 6819,
       "topics": [],
       "url": "https://github.com/zai-org/ZCode",
       "what": "Z.ai 推出的编码智能体运行框架，支持扩展。",
