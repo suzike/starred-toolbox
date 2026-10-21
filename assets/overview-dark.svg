@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="850" height="581" viewBox="0 0 850 581" role="img" aria-label="收藏概览：指标、分类分布与语言分布">
 <rect x="0.5" y="0.5" width="849" height="580" rx="14" fill="#0D1117" stroke="#30363D"/>
-<text x="32.0" y="55.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="23" fill="#E6EDF3" font-weight="600">113</text>
+<text x="32.0" y="55.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="23" fill="#E6EDF3" font-weight="600">115</text>
 <text x="32.0" y="75.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#7D8590">收录仓库</text>
 <text x="228.5" y="55.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="23" fill="#E6EDF3" font-weight="600">11</text>
 <text x="228.5" y="75.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#7D8590">分类</text>
@@ -13,36 +13,36 @@
 <text x="46.0" y="140.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#E6EDF3" font-weight="600">分类分布</text>
 <text x="272.0" y="162.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">Agent 扩展、Skills 与工具协议</text>
 <rect x="286.0" y="155.0" width="486.0" height="6" rx="3.0" fill="#818CF8" fill-opacity="1.000"/>
-<text x="818.0" y="162.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">22</text>
+<text x="818.0" y="162.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">23</text>
 <text x="272.0" y="186.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">AI Agent 与编码智能体</text>
-<rect x="286.0" y="179.0" width="397.6" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.918"/>
+<rect x="286.0" y="179.0" width="380.3" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.902"/>
 <text x="818.0" y="186.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">18</text>
 <text x="272.0" y="210.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">编程学习与计算机基础</text>
-<rect x="286.0" y="203.0" width="375.5" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.898"/>
+<rect x="286.0" y="203.0" width="359.2" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.883"/>
 <text x="818.0" y="210.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">17</text>
 <text x="272.0" y="234.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">信息聚合与效率工具</text>
-<rect x="286.0" y="227.0" width="309.3" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.836"/>
+<rect x="286.0" y="227.0" width="295.8" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.824"/>
 <text x="818.0" y="234.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">14</text>
 <text x="272.0" y="258.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">内容创作与多媒体生成</text>
-<rect x="286.0" y="251.0" width="265.1" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.795"/>
-<text x="818.0" y="258.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">12</text>
+<rect x="286.0" y="251.0" width="274.7" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.804"/>
+<text x="818.0" y="258.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">13</text>
 <text x="272.0" y="282.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">MATLAB / Simulink 与基于模型的设计</text>
-<rect x="286.0" y="275.0" width="176.7" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.714"/>
+<rect x="286.0" y="275.0" width="169.0" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.707"/>
 <text x="818.0" y="282.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">8</text>
 <text x="272.0" y="306.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">汽车电子、车载测试与控制</text>
-<rect x="286.0" y="299.0" width="154.6" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.693"/>
+<rect x="286.0" y="299.0" width="147.9" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.687"/>
 <text x="818.0" y="306.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">7</text>
 <text x="272.0" y="330.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">其他</text>
-<rect x="286.0" y="323.0" width="110.5" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.652"/>
+<rect x="286.0" y="323.0" width="105.7" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.648"/>
 <text x="818.0" y="330.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">5</text>
 <text x="272.0" y="354.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">机器学习与深度学习框架</text>
-<rect x="286.0" y="347.0" width="88.4" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.632"/>
+<rect x="286.0" y="347.0" width="84.5" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.628"/>
 <text x="818.0" y="354.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">4</text>
 <text x="272.0" y="378.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">知识库、RAG 与记忆</text>
-<rect x="286.0" y="371.0" width="88.4" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.632"/>
+<rect x="286.0" y="371.0" width="84.5" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.628"/>
 <text x="818.0" y="378.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">4</text>
 <text x="272.0" y="402.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#A9B2BD" text-anchor="end">工程方法论与研发流程</text>
-<rect x="286.0" y="395.0" width="44.2" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.591"/>
+<rect x="286.0" y="395.0" width="42.3" height="6" rx="3.0" fill="#818CF8" fill-opacity="0.589"/>
 <text x="818.0" y="402.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#E6EDF3" font-weight="600" text-anchor="end">2</text>
 <rect x="32" y="426.0" width="3" height="14" rx="1.5" fill="#818CF8"/>
 <text x="46.0" y="438.0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#E6EDF3" font-weight="600">语言分布</text>
@@ -53,11 +53,11 @@
 <rect x="140.2" y="455.0" width="127.1" height="26" rx="13.0" fill="#161B22" stroke="#30363D"/>
 <circle cx="154.7" cy="468.0" r="3.5" fill="#3178C6" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="0.8"/>
 <text x="165.2" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#A9B2BD">TypeScript</text>
-<text x="256.3" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#E6EDF3" font-weight="600" text-anchor="end">19</text>
+<text x="256.3" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#E6EDF3" font-weight="600" text-anchor="end">20</text>
 <rect x="275.3" y="455.0" width="127.1" height="26" rx="13.0" fill="#161B22" stroke="#30363D"/>
 <circle cx="289.8" cy="468.0" r="3.5" fill="#F1E05A" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="0.8"/>
 <text x="300.3" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#A9B2BD">JavaScript</text>
-<text x="391.4" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#E6EDF3" font-weight="600" text-anchor="end">18</text>
+<text x="391.4" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#E6EDF3" font-weight="600" text-anchor="end">19</text>
 <rect x="410.4" y="455.0" width="86.8" height="26" rx="13.0" fill="#161B22" stroke="#30363D"/>
 <circle cx="424.9" cy="468.0" r="3.5" fill="#E34C26" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="0.8"/>
 <text x="435.4" y="472.3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#A9B2BD">HTML</text>
