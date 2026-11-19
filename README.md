@@ -13,7 +13,7 @@
 ## 目录
 
 <table width="100%">
-<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">29</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">38</td></tr>
+<tr><td width="320"><a href="#ai-agent-与编码智能体">AI Agent 与编码智能体</a></td><td width="60" align="right">28</td><td width="320"><a href="#agent-扩展skills-与工具协议">Agent 扩展、Skills 与工具协议</a></td><td width="60" align="right">38</td></tr>
 <tr><td width="320"><a href="#知识库rag-与记忆">知识库、RAG 与记忆</a></td><td width="60" align="right">12</td><td width="320"><a href="#matlab-simulink-与基于模型的设计">MATLAB / Simulink 与基于模型的设计</a></td><td width="60" align="right">8</td></tr>
 <tr><td width="320"><a href="#汽车电子车载测试与控制">汽车电子、车载测试与控制</a></td><td width="60" align="right">9</td><td width="320"><a href="#内容创作与多媒体生成">内容创作与多媒体生成</a></td><td width="60" align="right">16</td></tr>
 <tr><td width="320"><a href="#信息聚合与效率工具">信息聚合与效率工具</a></td><td width="60" align="right">20</td><td width="320"><a href="#编程学习与计算机基础">编程学习与计算机基础</a></td><td width="60" align="right">21</td></tr>
@@ -35,17 +35,14 @@
 
 ## AI Agent 与编码智能体
 
-<sub>29 个 · [返回目录](#目录)</sub>
+<sub>28 个 · [返回目录](#目录)</sub>
 
-- **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** <sub>TypeScript · ★ 283.6k</sub>
+- **[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)** <sub>TypeScript · ★ 283.7k</sub>
   插件化的 DeepSeek 智能体运行时，一切能力皆以插件形式接入。
   <sub>想基于 DeepSeek 模型搭建可扩展的编码智能体时。</sub>
 - **[Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)** <sub>Python · ★ 188.1k</sub>
   可自主拆解并执行任务的开源 AI 智能体框架。
   <sub>想研究自主 Agent 的早期实现思路时。</sub>
-- **[stablyai/orca](https://github.com/stablyai/orca)** <sub>TypeScript · ★ 128.8k</sub>
-  多编码智能体编排平台，可在桌面、移动与远程运行多个 Agent。
-  <sub>需要同时调度 Claude Code 等多个编码 Agent 并统一管理时。</sub>
 - **[OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)** <sub>TypeScript · ★ 93.8k</sub>
   可自主完成编码、调试与多步开发任务的 AI 智能体平台。
   <sub>需要让 AI 独立接手开发任务、减少人工逐步操作时。</sub>
@@ -64,10 +61,10 @@
 - **[can1357/oh-my-pi](https://github.com/can1357/oh-my-pi)** <sub>TypeScript · ★ 39.4k</sub>
   集成 IDE 能力的终端编码智能体，支持多模型提供商与 MCP。
   <sub>需要在终端里用自有订阅驱动编码 Agent 并接入编辑器时。</sub>
-- **[ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go)** <sub>Dart · ★ 27.1k</sub>
+- **[ccch1mneyyy/dsh-Go](https://github.com/ccch1mneyyy/dsh-Go)** <sub>Dart · ★ 27.3k</sub>
   将 DeepSeek Harness 编码智能体移植到手机端运行的 Flutter 应用。
   <sub>需要在手机上运行编码 Agent 或远程操控电脑上的 Agent 时。</sub>
-- **[milind-soni/OpenMausBot](https://github.com/milind-soni/OpenMausBot)** <sub>TypeScript · ★ 25.3k</sub>
+- **[milind-soni/OpenMausBot](https://github.com/milind-soni/OpenMausBot)** <sub>TypeScript · ★ 25.4k</sub>
   开源自托管的 AI 智能体平台，为机器人提供可操作的虚拟机环境。
   <sub>需要自建可让智能体在虚拟机中执行计算机操作任务的环境时。</sub>
 - **[deepseek-ai/dsh-superagent-prototype](https://github.com/deepseek-ai/dsh-superagent-prototype)** <sub>TypeScript · ★ 23.8k</sub>
@@ -82,13 +79,13 @@
 - **[wangzan101/Mika](https://github.com/wangzan101/Mika)** <sub>Kotlin · ★ 9.1k</sub>
   运行在 Android 手机上的端侧 AI 智能体，可自动操作 App 与网页完成任务。
   <sub>需要在手机上让 AI 代为操作应用、处理跨 App 任务时。</sub>
-- **[nightly-labs/openbot](https://github.com/nightly-labs/openbot)** <sub>TypeScript · ★ 8.9k</sub>
+- **[nightly-labs/openbot](https://github.com/nightly-labs/openbot)** <sub>TypeScript · ★ 9k</sub>
   本地优先的桌面工作台，为多个编码智能体提供独立工作区、任务队列与协作。
   <sub>需要在本机同时运行并调度 Codex、Claude 等多个智能体协同完成任务时。</sub>
 - **[zai-org/ZCode](https://github.com/zai-org/ZCode)** <sub>TypeScript · ★ 8.8k</sub>
   Z.ai 推出的编码智能体运行框架，支持扩展。
   <sub>需要接入或试用 Z.ai 的编码 Agent 能力时。</sub>
-- **[Fei2411/DS-Bot](https://github.com/Fei2411/DS-Bot)** <sub>JavaScript · ★ 8.3k</sub>
+- **[Fei2411/DS-Bot](https://github.com/Fei2411/DS-Bot)** <sub>JavaScript · ★ 8.4k</sub>
   面向 DeepSeek Harness 的长期运行多机器人团队，支持机器人互发消息与群聊。
   <sub>想搭建多个长期在线、可互相协作对话的机器人时。</sub>
 - **[vastsa/PI-Desktop](https://github.com/vastsa/PI-Desktop)** <sub>TypeScript · ★ 8.1k</sub>
@@ -97,7 +94,7 @@
 - **[KunAgent/Kun](https://github.com/KunAgent/Kun)** <sub>TypeScript · ★ 6.4k</sub>
   本地优先的 AI 智能体工作台，覆盖编码、写作、设计与研究，统一 GUI 与 TUI 运行时。
   <sub>想要一个统一入口承载多种 Agent 任务、且数据留在本机时。</sub>
-- **[Tencent/LoopForge](https://github.com/Tencent/LoopForge)** <sub>Go · ★ 3.8k</sub>
+- **[Tencent/LoopForge](https://github.com/Tencent/LoopForge)** <sub>Go · ★ 3.9k</sub>
   自托管的编码智能体工作流编排引擎，串联 CodeBuddy、Codex 与 Claude Code 并设人工审批环节。
   <sub>需要把多个编码 Agent 纳入统一流程、在关键节点人工把关时使用。</sub>
 - **[nano-muse/nanoMuse](https://github.com/nano-muse/nanoMuse)** <sub>Swift · ★ 3.6k</sub>
@@ -109,7 +106,7 @@
 - **[zqiren/Orbital](https://github.com/zqiren/Orbital)** <sub>Python · ★ 1k</sub>
   面向自主智能体的编排与管理框架，强调上下文归用户所有、智能体可替换。
   <sub>需要搭建多智能体协作系统并自行掌控上下文与记忆时。</sub>
-- **[abcwyc/pi-agent-desktop](https://github.com/abcwyc/pi-agent-desktop)** <sub>TypeScript · ★ 936</sub>
+- **[abcwyc/pi-agent-desktop](https://github.com/abcwyc/pi-agent-desktop)** <sub>TypeScript · ★ 937</sub>
   跨平台桌面端 AI 编码智能体，无需配置环境或使用终端命令即可开始编码。
   <sub>希望以桌面应用形式使用编码 Agent、不想折腾命令行环境时。</sub>
 - **[sandroandric/AgentHandover](https://github.com/sandroandric/AgentHandover)** <sub>Python · ★ 703</sub>
@@ -129,31 +126,31 @@
 
 <sub>38 个 · [返回目录](#目录)</sub>
 
-- **[morluto/rea](https://github.com/morluto/rea)** <sub>TypeScript · ★ 468.1k</sub>
+- **[morluto/rea](https://github.com/morluto/rea)** <sub>TypeScript · ★ 468.5k</sub>
   为 Agent 提供逆向工程能力的工具集，可分析应用行为与原生二进制文件。
   <sub>需要让编码 Agent 借助 Ghidra 等工具做二进制反汇编与静态分析时。</sub>
-- **[mattpocock/skills](https://github.com/mattpocock/skills)** <sub>Shell · ★ 327.4k</sub>
+- **[mattpocock/skills](https://github.com/mattpocock/skills)** <sub>Shell · ★ 327.5k</sub>
   作者从个人 .agents 目录整理出的面向工程师的 Agent Skills 集合。
   <sub>想参考他人实际使用的编码 Agent 技能配置时。</sub>
-- **[affaan-m/ECC](https://github.com/affaan-m/ECC)** <sub>JavaScript · ★ 306.4k</sub>
+- **[affaan-m/ECC](https://github.com/affaan-m/ECC)** <sub>JavaScript · ★ 306.6k</sub>
   为 Claude Code、Codex 等编码智能体提供技能、记忆与安全扩展的优化框架。
   <sub>需要给现有编码 Agent 补充技能、记忆与安全约束时。</sub>
-- **[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)** <sub>JavaScript · ★ 194k</sub>
+- **[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)** <sub>JavaScript · ★ 194.1k</sub>
   让 AI 编码代理遵循 YAGNI、少写代码的 Agent 技能插件。
   <sub>希望代理减少冗余代码、避免过度设计时。</sub>
-- **[nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)** <sub>Python · ★ 151.3k</sub>
+- **[nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)** <sub>Python · ★ 151.4k</sub>
   为 AI 代理提供多平台专业 UI/UX 设计能力的技能。
   <sub>让编码代理生成界面时具备设计规范与布局能力时。</sub>
-- **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** <sub>JavaScript · ★ 118.9k</sub>
+- **[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)** <sub>JavaScript · ★ 119k</sub>
   面向 AI 编码智能体的生产级工程技能集合。
   <sub>想给 Agent 补上成熟工程实践、减少低级失误时。</sub>
-- **[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)** <sub>JavaScript · ★ 118.4k</sub>
+- **[Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)** <sub>JavaScript · ★ 118.5k</sub>
   用于约束 AI 生成内容风格、避免通用化设计的 Agent 技能。
   <sub>觉得代理产出的前端设计千篇一律、想改善审美时。</sub>
-- **[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)** <sub>HTML · ★ 68.2k</sub>
+- **[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)** <sub>HTML · ★ 68.3k</sub>
   面向多种编码 Agent 的图表设计技能集，输出自包含 HTML 与 SVG 图。
   <sub>想让编码 Agent 按统一风格生成架构图或数据可视化时。</sub>
-- **[yetone/magpie](https://github.com/yetone/magpie)** <sub>Go · ★ 38.6k</sub>
+- **[yetone/magpie](https://github.com/yetone/magpie)** <sub>Go · ★ 38.7k</sub>
   在 macOS 菜单栏为编码 Agent 切换与配置不同大模型后端的工具。
   <sub>想让 Codex、Claude Code 等 Agent 接入 DeepSeek、Kimi 等模型时。</sub>
 - **[alchaincyf/huashu-design](https://github.com/alchaincyf/huashu-design)** <sub>HTML · ★ 29.8k</sub>
@@ -222,7 +219,7 @@
 - **[imxv/Pretty-mermaid-skills](https://github.com/imxv/Pretty-mermaid-skills)** <sub>JavaScript · ★ 1.6k</sub>
   为 AI Agent 提供生成并渲染 Mermaid 图表为 SVG 或终端 ASCII 的技能包。
   <sub>需要让编码 Agent 自动输出流程图、架构图等文档配图时。</sub>
-- **[tjxj/z-skills](https://github.com/tjxj/z-skills)** <sub>Python · ★ 664</sub>
+- **[tjxj/z-skills](https://github.com/tjxj/z-skills)** <sub>Python · ★ 666</sub>
   一组可复用的 Agent Skills 技能集合，用 Python 实现。
   <sub>需要为编码智能体补充可复用技能扩展时。</sub>
 - **[alchaincyf/huashu-chrome](https://github.com/alchaincyf/huashu-chrome)** <sub>JavaScript · ★ 606</sub>
@@ -248,10 +245,10 @@
 
 <sub>12 个 · [返回目录](#目录)</sub>
 
-- **[thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** <sub>TypeScript · ★ 118.2k</sub>
+- **[thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)** <sub>TypeScript · ★ 118.3k</sub>
   为编码 Agent 记录会话过程并压缩存储，在后续会话中注入相关上下文的记忆工具。
   <sub>希望 Agent 跨会话保留项目上下文、避免重复交代背景时。</sub>
-- **[opendatalab/MinerU](https://github.com/opendatalab/MinerU)** <sub>Python · ★ 83.9k</sub>
+- **[opendatalab/MinerU](https://github.com/opendatalab/MinerU)** <sub>Python · ★ 84k</sub>
   将 PDF、Office 等复杂文档解析为 Markdown/JSON 的文档抽取工具。
   <sub>需要把文档转成结构化文本供 RAG 或 Agent 工作流使用时。</sub>
 - **[Tencent/WeKnora](https://github.com/Tencent/WeKnora)** <sub>Go · ★ 37.8k</sub>
@@ -260,7 +257,7 @@
 - **[opendataloader-project/opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf)** <sub>Java · ★ 30.3k</sub>
   开源 PDF 解析工具，将 PDF 转为带坐标、表格与标记的 Markdown、JSON 等结构化数据。
   <sub>需要把 PDF 文档转成可检索结构化数据以构建 RAG 或做无障碍处理时。</sub>
-- **[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki)** <sub>TypeScript · ★ 21.7k</sub>
+- **[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki)** <sub>TypeScript · ★ 21.8k</sub>
   把文档自动整理成互链知识库的跨平台桌面应用。
   <sub>同上，两者描述一致，此为星标数更高的版本。</sub>
 - **[chaitin/PandaWiki](https://github.com/chaitin/PandaWiki)** <sub>TypeScript · ★ 10.5k</sub>
@@ -272,10 +269,10 @@
 - **[tianma-if/edgeever](https://github.com/tianma-if/edgeever)** <sub>TypeScript · ★ 3.4k</sub>
   支持即时同步与原生 MCP 的 AI 知识库，可替代印象笔记或 Obsidian。
   <sub>需要自建或部署在 Cloudflare 上的个人笔记与知识管理库时。</sub>
-- **[SourceWeft/SourceWeft](https://github.com/SourceWeft/SourceWeft)** <sub>TypeScript · ★ 516</sub>
+- **[SourceWeft/SourceWeft](https://github.com/SourceWeft/SourceWeft)** <sub>TypeScript · ★ 517</sub>
   可自托管的 AI 工作站，整合智能体、技能、MCP 与带引用的知识库问答。
   <sub>希望用自有模型和基础设施搭建带引用来源的文档问答与知识库时。</sub>
-- **[0xCoach/TaoSheng](https://github.com/0xCoach/TaoSheng)** <sub>Kotlin · ★ 426</sub>
+- **[0xCoach/TaoSheng](https://github.com/0xCoach/TaoSheng)** <sub>Kotlin · ★ 429</sub>
   安卓端全天录音转写、声纹认人并由大模型整理为待办与记忆的应用。
   <sub>想把日常对话自动记录成个人记忆与待办，且数据只留在手机本地时。</sub>
 - **[zenghui-li/yuxi](https://github.com/zenghui-li/yuxi)** <sub>Python · ★ 184</sub>
@@ -356,13 +353,13 @@
 - **[harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo)** <sub>Python · ★ 144.5k</sub>
   根据主题或关键词自动生成高清短视频的 AI 工作流工具。
   <sub>需要批量制作短视频素材、自动配音加字幕时。</sub>
-- **[tt-a1i/archify](https://github.com/tt-a1i/archify)** <sub>JavaScript · ★ 97.7k</sub>
+- **[tt-a1i/archify](https://github.com/tt-a1i/archify)** <sub>JavaScript · ★ 97.8k</sub>
   生成架构图、流程图、时序图与数据流图的自包含 HTML Agent Skill。
   <sub>需要带动效、可导出、可验证的技术图表时。</sub>
 - **[storytold/photocraft](https://github.com/storytold/photocraft)** <sub>Rust · ★ 80.3k</sub>
   用纯 Rust 从零编写的开源照片编辑软件。
   <sub>需要对图片进行编辑处理，并希望使用开源本地工具时。</sub>
-- **[meta/astryx](https://github.com/meta/astryx)** <sub>TypeScript · ★ 30.5k</sub>
+- **[meta/astryx](https://github.com/meta/astryx)** <sub>TypeScript · ★ 30.6k</sub>
   可定制、面向智能体使用的开源设计系统，提供组件与设计规范。
   <sub>需要为产品搭建统一界面规范，或让智能体按设计系统生成界面时。</sub>
 - **[ATH-MaaS/Pixelle-Video](https://github.com/ATH-MaaS/Pixelle-Video)** <sub>Python · ★ 30.2k</sub>
@@ -386,7 +383,7 @@
 - **[threerocks/sweety-handdraw-video](https://github.com/threerocks/sweety-handdraw-video)** <sub>Python · ★ 1.3k</sub>
   从主题或文章生成手绘讲解视频，含描线、逐字书写与配音流程。
   <sub>需要把文章或主题快速转成手绘风格讲解视频时。</sub>
-- **[Aryanutkarsh/SeeCode](https://github.com/Aryanutkarsh/SeeCode)** <sub>JavaScript · ★ 982</sub>
+- **[Aryanutkarsh/SeeCode](https://github.com/Aryanutkarsh/SeeCode)** <sub>JavaScript · ★ 985</sub>
   根据简短 JSON 规格生成可交互动画架构图的工具，面向编码智能体。
   <sub>需要把系统设计或代码结构快速转成可探索的动画图表时。</sub>
 - **[guanmo-ai/design-style](https://github.com/guanmo-ai/design-style)** <sub>TypeScript · ★ 513</sub>
@@ -436,16 +433,16 @@
 - **[fuxiaoai/tidings-rss](https://github.com/fuxiaoai/tidings-rss)** <sub>Python · ★ 673</sub>
   经过筛选与实时校验的 OPML 订阅源合集，覆盖 AI、新闻、研究、播客等。
   <sub>需要批量导入 RSS 阅读器、快速搭建信息订阅源时使用。</sub>
-- **[yetone/alma-relay](https://github.com/yetone/alma-relay)** <sub>JavaScript · ★ 569</sub>
+- **[yetone/alma-relay](https://github.com/yetone/alma-relay)** <sub>JavaScript · ★ 570</sub>
   可自托管的中继服务，用手机远程访问桌面端 Alma 应用。
   <sub>需要在手机上随时远程操作桌面应用时。</sub>
-- **[aoyamashou/UUyc-companion](https://github.com/aoyamashou/UUyc-companion)** <sub>Swift · ★ 333</sub>
+- **[aoyamashou/UUyc-companion](https://github.com/aoyamashou/UUyc-companion)** <sub>Swift · ★ 335</sub>
   Mac 版 UU 远程辅助工具，自动创建同分辨率虚拟屏并管理其他屏幕。
   <sub>在 Mac 上使用 UU 远程时想消除黑边、避免窗口错位时。</sub>
-- **[RoversX/ThinkTerm](https://github.com/RoversX/ThinkTerm)** <sub>Rust · ★ 253</sub>
+- **[RoversX/ThinkTerm](https://github.com/RoversX/ThinkTerm)** <sub>Rust · ★ 254</sub>
   内置多路复用器的终端，关闭后会话继续运行，可跨机器管理 shell 与 AI 智能体。
   <sub>需要在桌面、浏览器和 TUI 间切换并保持长时间任务不中断时。</sub>
-- **[jackwener/Kaze](https://github.com/jackwener/Kaze)** <sub>JavaScript · ★ 228</sub>
+- **[jackwener/Kaze](https://github.com/jackwener/Kaze)** <sub>JavaScript · ★ 230</sub>
   macOS 上的轻量浏览器，内置可在标签页中执行任务的智能体。
   <sub>日常浏览网页并希望由智能体协助处理页面内容时。</sub>
 - **[suzike/sunmemo-windows](https://github.com/suzike/sunmemo-windows)** `自研` <sub>JavaScript · ★ 6</sub>
@@ -468,13 +465,13 @@
 
 <sub>21 个 · [返回目录](#目录)</sub>
 
-- **[sindresorhus/awesome](https://github.com/sindresorhus/awesome)** <sub>★ 539k</sub>
+- **[sindresorhus/awesome](https://github.com/sindresorhus/awesome)** <sub>★ 539.1k</sub>
   汇集各类主题优质资源清单的 Awesome 列表总目录仓库。
   <sub>想按主题查找学习资料、工具或开源项目索引时。</sub>
 - **[ossu/computer-science](https://github.com/ossu/computer-science)** <sub>HTML · ★ 211.3k</sub>
   免费的计算机科学自学课程路线。
   <sub>想按完整课程体系自学 CS 时。</sub>
-- **[521xueweihan/HelloGitHub](https://github.com/521xueweihan/HelloGitHub)** <sub>Python · ★ 189.8k</sub>
+- **[521xueweihan/HelloGitHub](https://github.com/521xueweihan/HelloGitHub)** <sub>Python · ★ 189.9k</sub>
   面向入门者的开源项目推荐月刊。
   <sub>想发现适合上手的开源项目时。</sub>
 - **[jackfrued/Python-100-Days](https://github.com/jackfrued/Python-100-Days)** <sub>Jupyter Notebook · ★ 187.9k</sub>
@@ -486,10 +483,10 @@
 - **[rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)** <sub>Python · ★ 79.5k</sub>
   从零学习 AI 工程的教程项目，覆盖 LLM、Agent 与深度学习。
   <sub>想系统入门 AI 工程并动手实现各模块时作为学习路线。</sub>
-- **[HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor)** <sub>Python · ★ 60.4k</sub>
+- **[HKUDS/DeepTutor](https://github.com/HKUDS/DeepTutor)** <sub>Python · ★ 60.5k</sub>
   基于多智能体与 RAG 的个性化长期学习辅导系统。
   <sub>想搭建能持续跟踪学习进度并答疑的 AI 辅导工具时。</sub>
-- **[storytold/craft-anything](https://github.com/storytold/craft-anything)** <sub>Rust · ★ 36.9k</sub>
+- **[storytold/craft-anything](https://github.com/storytold/craft-anything)** <sub>Rust · ★ 37.2k</sub>
   帮助理解任意软件工作原理并动手仿制实现的学习型项目。
   <sub>想通过拆解并复刻现有软件来学习系统设计与实现时。</sub>
 - **[izackwu/TeachYourselfCS-CN](https://github.com/izackwu/TeachYourselfCS-CN)** <sub>★ 22.2k</sub>
@@ -573,7 +570,7 @@
 - **[eternity4719/HowToLiveBetter](https://github.com/eternity4719/HowToLiveBetter)** <sub>HTML · ★ 76.5k</sub>
   按性价比排序的循证生活指南，涵盖健康、理财、法律、社保与育儿等主题。
   <sub>需要查阅有出处依据的生活决策建议时，可参考其成本收益与证据等级。</sub>
-- **[pingdotgg/t3code](https://github.com/pingdotgg/t3code)** <sub>TypeScript · ★ 65.1k</sub>
+- **[pingdotgg/t3code](https://github.com/pingdotgg/t3code)** <sub>TypeScript · ★ 65.4k</sub>
   一个 TypeScript 编写的代码仓库，缺少官方描述与主题标签。
   <sub>信息有限，待补充。</sub>
 - **[HeyPuter/everything](https://github.com/HeyPuter/everything)** <sub>JavaScript · ★ 8.7k</sub>
@@ -585,7 +582,7 @@
 - **[Cai-aa/CAE-Agent-Hub](https://github.com/Cai-aa/CAE-Agent-Hub)** <sub>Python · ★ 1.4k</sub>
   信息有限，待补充。
   <sub>信息有限，待补充。</sub>
-- **[the-snowpear/omp-studio](https://github.com/the-snowpear/omp-studio)** <sub>TypeScript · ★ 183</sub>
+- **[the-snowpear/omp-studio](https://github.com/the-snowpear/omp-studio)** <sub>TypeScript · ★ 184</sub>
   无描述信息的 TypeScript 项目，用途无法从元数据判断。
   <sub>信息有限，待补充。</sub>
 - **[km-open-lab/SunMemo](https://github.com/km-open-lab/SunMemo)** <sub>Swift · ★ 4</sub>
@@ -623,7 +620,7 @@
 
 [![定时同步状态](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml/badge.svg?branch=main)](https://github.com/suzike/starred-toolbox/actions/workflows/sync-stars.yml)
 
-<sub>数据更新于 2026-11-18 21:23 UTC</sub>
+<sub>数据更新于 2026-11-19 03:20 UTC</sub>
 
 - 唯一来源是本账号的 Star 列表，由 GitHub Actions 每小时定时拉取，不做任何主动发现。
 - 新增条目会调用大模型归类并生成「这是什么 / 什么时候用」两句解读；没有配置模型密钥时降级为规则归类。
